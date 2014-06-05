@@ -23,8 +23,8 @@ $(function(){
   else {
     div.html(
       'Du är inte inloggad.' +
-      '<div class="login">Logga in.</div>' +
-      '<div class="register">Registrera dig.</div>'
+      '<div class="login">Logga in.</div>'
+     /* '<div class="register">Registrera dig.</div>' */
     );
   }
 
@@ -66,12 +66,14 @@ $(function(){
     }
   }
 
+  /*
    // When the user clicks register
   div.on("click",".register",function(){
     form.find('.submit').val("Registrera dig");
     form.submit(registrationAttempt);
     form.appendTo('body');
   });
+
 
   // Do on registration attempt
   function registrationAttempt(e){
@@ -92,6 +94,7 @@ $(function(){
       this.reset();
     }
   }
+  */
 
   // When the user clicks logout
   div.on("click",".logout",function(){

@@ -31,13 +31,13 @@ LoginHandler = Object.createClass({
   logout: function(){
     return this.ajaxCall({action:"logout"});
   },
-
+  /*
   registerUser: function(username, password){
     return this.ajaxCall(
       {action:"registerUser", username: username, password: password}
     );
   },
-
+  */
   getUser: function(){
     return this.ajaxCall({action:"getUser"});
   }

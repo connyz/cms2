@@ -43,7 +43,7 @@ class LoginHandler {
     // remember user table name as a property
     $this -> usertablename = $usertablename;
   }
-
+  /*
   public function registerUser($username,$password,$minLen = 3){
 
     // do not accept usernames or passwords below a certain length
@@ -75,7 +75,7 @@ class LoginHandler {
     return $this -> login($username,$password);
 
   }
-
+  */
   public function login($username,$password){
     $q = $this -> pdo -> prepare(
       "SELECT COUNT(*) as count FROM $this->usertablename ".
