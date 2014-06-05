@@ -1,10 +1,6 @@
 // Wait for the DOM
 $(function(){
 
-  // Non-OOP code ahead... Sorry!
-  // but just a quick test
-  // of the login handler class
-
   // Create a loginHandler
   loginHandler = new LoginHandler();
 
