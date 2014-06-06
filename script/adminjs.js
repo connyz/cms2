@@ -11,7 +11,9 @@ $(function(){
   var user = loginHandler.getUser();
   // and show different things accordingly:
   if(user){
-    div.html(
+    // Html for adminarea
+    var adminContent =
+    '<div class="admincontent">' +
       'Du är inloggad som ' + user + '.' +
       '<div class="logout">Logga ut</div>' +
 
@@ -29,8 +31,10 @@ $(function(){
           '<input class="date" type="date">' +
           '<button id="FormSubmit">Add record</button>' +
         '</form>' +
-      '</div>'
-    );
+      '</div>' +
+    '</div>';
+    // Add content to page
+    $('#maincontent').append(adminContent);
   }
   else {
     div.html(
