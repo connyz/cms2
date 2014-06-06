@@ -121,8 +121,8 @@ $(function(){
 
 //==========================================================================================================READ/
   // För att hämta information från phpDisplay genom ajax
-// skickar datan (som är objekt på varje rad i databasen) till funktionen tableOfDataAdmin
-// som jag sedan visar geno att använda html till diven på adminsidan
+  // skickar datan (som är objekt på varje rad i databasen) till funktionen tableOfDataAdmin
+  // som jag sedan visar geno att använda html till diven på adminsidan
   function readData(){
     $.ajax({
       url: 'php/read.php',//the script to call to get data
@@ -133,31 +133,32 @@ $(function(){
         tableOfDataAdmin(data);
       }
     });
-  }
+  };
+
   readData();
 
   function tableOfDataAdmin(data){
-  console.log("from the function tableOfDataAdmin ",data);
+    console.log("from the function tableOfDataAdmin ",data);
 
-  var tableOfTheArticles = "<table>";
-  tableOfTheArticles += "<thead><tr>" +
-      "<th>Publication Date</th>" +
-      "<th>Article</th>" +
-      "</tr></thead>";
-  // loop through reuslt array
-  for(var i = 0; i < data.length; i++){
-    //console.log(data[i]);
-    tableOfTheArticles += '<tr>' +
-        "<td>" + data[i].publicationDate + "</td>" +
-        "<td>" + data[i].title + "</td>" +
-        "</tr>";
-  }
+    var tableOfTheArticles = "<table>";
+    tableOfTheArticles += "<thead><tr>" +
+    "<th>Publication Date</th>" +
+    "<th>Article</th>" +
+    "</tr></thead>";
+    // loop through result array
+    for(var i = 0; i < data.length; i++){
+      //console.log(data[i]);
+      tableOfTheArticles += '<tr>' +
+      "<td>" + data[i].publicationDate + "</td>" +
+      "<td>" + data[i].title + "</td>" +
+      "</tr>";
+    }
 
-  tableOfTheArticles += "</table>";
-  // add the html to the dom
-  // console.log(html);
-  $('.admin-articles').html(tableOfTheArticles);
-  }
+    tableOfTheArticles += "</table>";
+    // add the html to the dom
+    // console.log(html);
+    $('.admin-articles').html(tableOfTheArticles);
+  };
 
 
 
