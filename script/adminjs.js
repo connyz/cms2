@@ -136,84 +136,69 @@ $(function(){
   }
   readData();
 
-    function tableOfDataAdmin(data){
-    console.log("from the function tableOfDataAdmin ",data);
+  function tableOfDataAdmin(data){
+  console.log("from the function tableOfDataAdmin ",data);
 
-    var tableOfTheArticles = "<table>";
-    tableOfTheArticles += "<thead><tr>" +
-        "<th>Publication Date</th>" +
-        "<th>Article</th>" +
-        "</tr></thead>";
-    // loop through reuslt array
-    for(var i = 0; i < data.length; i++){
-      //console.log(data[i]);
-      tableOfTheArticles += '<tr>' +
-          "<td>" + data[i].publicationDate + "</td>" +
-          "<td>" + data[i].title + "</td>" +
-          "</tr>";
+  var tableOfTheArticles = "<table>";
+  tableOfTheArticles += "<thead><tr>" +
+      "<th>Publication Date</th>" +
+      "<th>Article</th>" +
+      "</tr></thead>";
+  // loop through reuslt array
+  for(var i = 0; i < data.length; i++){
+    //console.log(data[i]);
+    tableOfTheArticles += '<tr>' +
+        "<td>" + data[i].publicationDate + "</td>" +
+        "<td>" + data[i].title + "</td>" +
+        "</tr>";
+  }
+
+  tableOfTheArticles += "</table>";
+  // add the html to the dom
+  // console.log(html);
+  $('.admin-articles').html(tableOfTheArticles);
+  }
+
+
+
+
+  //##### send add record Ajax request to create.php #########
+  $("#FormSubmit").click(function (e) {
+    e.preventDefault();
+    if($("#contentText").val()==='')
+    {
+        alert("Please enter some text!");
+        return false;
     }
 
-    tableOfTheArticles += "</table>";
-    // add the html to the dom
-    // console.log(html);
-    $('.admin-articles').html(tableOfTheArticles);
-    }
+    $("#FormSubmit").hide(); //hide submit button
+    //$("#LoadingImage").show(); //show loading image
 
+    var title = $(".title").val(); //build a post data structure
+    var summary = $(".summary").val(); //build a post data structure
+    var content = $("#contentText").val(); //build a post data structure
+    var date = $(".date").val(); //build a post data structure
 
+    console.log(content, title, summary, date);
 
-
-    //##### send add record Ajax request to create.php #########
-    $("#FormSubmit").click(function (e) {
-            e.preventDefault();
-            if($("#contentText").val()==='')
-            {
-                alert("Please enter some text!");
-                return false;
-            }
-
-            $("#FormSubmit").hide(); //hide submit button
-            //$("#LoadingImage").show(); //show loading image
-
-            var title = $(".title").val(); //build a post data structure
-            var summary = $(".summary").val(); //build a post data structure
-            var content = $("#contentText").val(); //build a post data structure
-            var date = $(".date").val(); //build a post data structure
-
-            console.log(content, title, summary, date);
-
-            jQuery.ajax({
-            type: "POST", // HTTP method POST or GET
-            url: "php/create.php", //Where to make Ajax calls
-            dataType:"text", // Data type, HTML, json etc.
-            data: { 'title': title,
-          'summary': summary,
-          'content': content,
-          'date': date }, //Form variables
-            success:function(response){
-                //$("#responds").append(response);
-                console.log(response);
-                $(".title, .summary, #contentText").val(''); //empty text field on successful
-                $("#FormSubmit").show(); //show submit button
-                //$("#LoadingImage").hide(); //hide loading image
-                readData();
-            },
-            error:function (xhr, ajaxOptions, thrownError){
-                $("#FormSubmit").show(); //show submit button
-                //$("#LoadingImage").hide(); //hide loading image
-                alert(thrownError);
-            }
-            });
-
+    jQuery.ajax({
+    type: "POST", // HTTP method POST or GET
+    url: "php/create.php", //Where to make Ajax calls
+    dataType:"text", // Data type, HTML, json etc.
+    data: { 'title': title, 'summary': summary, 'content': content, 'date': date }, //Form variables
+    success:function(response){
+        //$("#responds").append(response);
+        console.log(response);
+        $(".title, .summary, #contentText").val(''); //empty text field on successful
+        $("#FormSubmit").show(); //show submit button
+        //$("#LoadingImage").hide(); //hide loading image
+        readData();
+      },
+      error:function (xhr, ajaxOptions, thrownError){
+        $("#FormSubmit").show(); //show submit button
+        //$("#LoadingImage").hide(); //hide loading image
+        alert(thrownError);
+      }
     });
-
-
-
-
-
-
-
-
-
-
-
+  });
 });
