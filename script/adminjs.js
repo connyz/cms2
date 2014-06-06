@@ -120,6 +120,11 @@ $(function(){
     location.reload();
   });
 
+  // valentin - logga ut funktionen ovan funkade inte så skapade denna funktionen
+  $('.logout').click( function(){
+    loginHandler.logout();
+    location.reload();
+  });
 
 
 
