@@ -5,7 +5,7 @@ $(function(){
   loginHandler = new LoginHandler();
 
   // Create a div;
-  var div = $('<div/>').appendTo('body');
+  //var div = $('<div/>').appendTo('body');
 
   // Check if a user is logged in
   var user = loginHandler.getUser();
@@ -37,10 +37,10 @@ $(function(){
     $('#maincontent').append(adminContent);
   }
   else {
-    div.html(
-      'Du är inte inloggad.' +
-      '<div class="login">Logga in.</div>'
-    );
+    var loggedOut = '<div class="loggedout">' +
+    'Du är inte inloggad.' +
+    '<div class="login">Logga in.</div></div>';
+    $('#maincontent').append(loggedOut);
   }
 
   // A form for registration/login
@@ -55,10 +55,10 @@ $(function(){
   );
 
  // When the user clicks login
-  div.on("click",".login",function(){
+  $('.login').click(function(){
     form.find('.submit').val("Logga in");
     form.submit(loginAttempt);
-    form.appendTo('body');
+    form.appendTo('#maincontent');
   });
 
   // Do on login attempt
@@ -80,6 +80,12 @@ $(function(){
       this.reset();
     }
   }
+
+  // valentin - logga ut funktionen ovan funkade inte så skapade denna funktionen
+  $('.logout').click( function(){
+    loginHandler.logout();
+    location.reload();
+  });
 
   /*
    // When the user clicks register
@@ -110,21 +116,17 @@ $(function(){
     }
   }
   */
-
+  /*
   // When the user clicks logout
-  div.on("click",".logout",function(){
+  $(document).on("click",".logout",function(){
     loginHandler.logout();
     // Reload the page - just to test state
     // (that php rembembers it session values)
     // we DO NOT need this in a real app - it's crude...
     location.reload();
   });
+  */
 
-  // valentin - logga ut funktionen ovan funkade inte så skapade denna funktionen
-  $('.logout').click( function(){
-    loginHandler.logout();
-    location.reload();
-  });
 
 
 
