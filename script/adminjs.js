@@ -45,7 +45,7 @@ $(function(){
 
   // A form for registration/login
   var form = $(
-    '<form class="login">' +
+    '<form class="loginform">' +
     '<label for="username">Användarnamn:</label>' +
     '<input type="text" id="username" name="username">' +
     '<label for="password">password:</label>' +
