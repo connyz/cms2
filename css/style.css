@@ -1,13 +1,29 @@
+
+h1 {
+	font-size: 30px;
+	margin: 0;
+}
+
+html {
+	height:100%;
+	width: 100%;
+}
+
 body {
-	margin:20px
+	height: 100%;
+	width: 100%;
+
 }
 
 div div {
-	margin-top: 20px
+	margin-top: 20px;
+	margin: 0;
+	padding: 0;
+	border: 0;
 }
 
 label, input {
-	display:block
+	display:block;
 }
 
 form {
@@ -18,4 +34,55 @@ form {
 
 .article-id {
 	display: none;
+	width:200px;
 }
+
+#header {
+	text-align: left;
+	height: 70px;
+	margin: 0;
+	padding: 0;
+	background-color: #CAD19D;
+}
+
+#navigation {
+	float: left;
+	width: 150px;
+	height: 600px;
+	background-color: #A9BCE8;
+}
+
+#maincontent {
+	background-color: #F7C3C3;
+	width: 100%;
+	height: 600px;
+	margin: 0;
+	padding: 0;
+}
+
+#footer {
+	clear: both;
+	text-align: center;
+	height: 50px;
+	background-color: #A5DCF2;
+}
+
+.loggedin {
+	padding-left: 200px;
+}
+
+.loggedout {
+	padding-left: 200px;
+}
+
+.loginform {
+	padding-left: 200px;
+	height: 300px;
+	width: 300px;
+}
+
+.admincontent {
+	padding-left: 200px;
+}
+
+
