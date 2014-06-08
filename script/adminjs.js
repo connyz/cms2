@@ -140,9 +140,10 @@ $(function(){
       {
         //console.log(data);
         tableOfDataAdmin(data);
+        clickEvents(data);
       }
     });
-  };
+  }
 
   readData();
 
@@ -160,14 +161,18 @@ $(function(){
       tableOfTheArticles += '<tr>' +
       "<td>" + data[i].publicationDate + "</td>" +
       "<td>" + data[i].title + "</td>" +
+      '<td class="article-id">' + data[i].id + "</td>" +
       "</tr>";
+
+      // ta fram id
+      console.log( data[i].id );
     }
 
     tableOfTheArticles += "</table>";
     // add the html to the dom
     // console.log(html);
     $('.admin-articles').html(tableOfTheArticles);
-  };
+  }
 
 
 
@@ -211,4 +216,59 @@ $(function(){
       }
     });
   });
+
+
+//===============================================================================================SHOW THE CLICKED ARTICLE/
+
+
+function clickEvents(data) {
+
+  $(".admin-articles").on('click', 'table tr', function(){
+    var x = $(this).text();
+    alert(x);
+
+
+    // the x is the text from this clicked tr row
+    // get the last character from this x(text) that is the id
+    // then use ajax on this and send it to databases to get the content of this row
+    // try to open it with a new page or a new screen.
+
+    /*
+    var ids = this.id;
+    $.ajax({
+      url:"sql",
+      cache:false,
+      data: {
+        action: "getBookByISBN",
+        isbn: this.id
+      },
+      success:function(data){
+        console.log("Book details",data[0]);
+        // gör function som får ut info om boken på main content.
+        renderBookdetails(data[0]);
+      },
+      error:function(errordata){
+        console.log(errordata.responseJSON);
+      }
+    });
+    */
+
+  });
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 });
