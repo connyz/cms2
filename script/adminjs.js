@@ -202,7 +202,7 @@ $(function(){
     type: "POST", // HTTP method POST or GET
     url: "php/create.php", //Where to make Ajax calls
     dataType:"text", // Data type, HTML, json etc.
-    data: { 'title': title, 'summary': summary, 'content': content, 'date': date }, //Form variables
+    data: { 'title': title, 'summary': summary, 'content': content, 'date': date, 'type': 'insert' }, //Form variables
     success:function(response){
         //$("#responds").append(response);
         console.log(response);

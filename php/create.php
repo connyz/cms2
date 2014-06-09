@@ -9,6 +9,7 @@ $title = $_POST['title'];
 $summary = $_POST['summary'];
 $content = $_POST['content'];
 $date = $_POST['date'];
+$type = $_POST['type'];
 
 echo $content;
 echo $title;
@@ -16,13 +17,11 @@ echo $summary;
 echo $date;
 
 
-
-$sql = "INSERT INTO articles (publicationDate, title, summary, content) VALUES ('" . $date . "','" . $title . "','" . $summary . "','" . $content . "')";
-  $myDbConnect->insertupdate( $sql );
-  //echo "insert";
-
-
-
+if ($type === "insert"){
+	$sql = "INSERT INTO articles (publicationDate, title, summary, content) VALUES ('" . $date . "','" . $title . "','" . $summary . "','" . $content . "')";
+	  $myDbConnect->insertupdate( $sql );
+	  //echo "insert";
+}
 
 
 
