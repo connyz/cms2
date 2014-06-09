@@ -11,7 +11,7 @@ class LoginHandler {
     $host = "localhost",
     $dbname = "cms2",
     $dbusername = "root",
-    $dbpassword = "",
+    $dbpassword = "root",
     $usertablename = "users"
   ){
 

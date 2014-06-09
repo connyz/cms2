@@ -8,7 +8,7 @@ class CRUD {
     $host = "localhost";
     $dbname = "cms2";
     $user = "root";
-    $pass = "";
+    $pass = "root";
 
     $this->myPDO = new PDO("mysql:host=$host;dbname=$dbname",$user,$pass);
   }
