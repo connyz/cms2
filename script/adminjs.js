@@ -145,6 +145,9 @@ $(function(){
         //console.log(data);
         tableOfDataAdmin(data);
         clickEvents();
+      },
+      error:function (xhr, ajaxOptions, thrownError){
+        alert(thrownError);
       }
     });
   }
