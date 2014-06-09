@@ -130,7 +130,7 @@ $(function(){
 
 
 
-//==========================================================================================================READ/
+//==========================================================================================================READ DATA FROM DATABASE/
   // För att hämta information från phpDisplay genom ajax
   // skickar datan (som är objekt på varje rad i databasen) till funktionen tableOfDataAdmin
   // som jag sedan visar geno att använda html till diven på adminsidan
@@ -183,7 +183,7 @@ $(function(){
 
 
 
-
+//===============================================================================================CREATE AN ARTICLE /
   //##### send add record Ajax request to create.php #########
   $("#FormSubmit").click(function (e) {
     e.preventDefault();
