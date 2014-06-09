@@ -16,7 +16,7 @@ class CRUD {
   public function select($sql){
     $query = $this->myPDO->prepare($sql);
     $query->execute();
-    $result = $query->fetchAll();
+    $result = $query->fetchAll(PDO::FETCH_ASSOC);
     return $result;
   }
 

@@ -136,8 +136,10 @@ $(function(){
   // som jag sedan visar geno att använda html till diven på adminsidan
   function readData(){
     $.ajax({
+      type: "POST",
       url: 'php/read.php',//the script to call to get data
       dataType: 'json',//data format
+      data: { 'type': 'showAll' },
       success: function(data)//on recieve of reply
       {
         //console.log(data);
@@ -167,7 +169,7 @@ $(function(){
       "</tr>";
 
       // ta fram id
-      console.log( data[i].id );
+      //console.log( data[i].id );
     }
 
     tableOfTheArticles += "</table>";
@@ -188,7 +190,7 @@ $(function(){
         return false;
     }
 
-    $("#FormSubmit").hide(); //hide submit button
+    $("#FormSubmit").fadeOut(); //hide submit button
     //$("#LoadingImage").show(); //show loading image
 
     var title = $(".title").val(); //build a post data structure
@@ -227,10 +229,29 @@ function clickEvents() {
 
   $(".admin-articles").on('click', 'table tr', function(){
     //console.log( $(this).text());
-    //console.log( $(this).find(".article-id") );
 
-    var x = $(this).find(".article-id").text();
-    console.log(x);
+    var idx = $(this).find(".article-id").text();
+    console.log(idx);
+
+    jQuery.ajax({
+    type: "POST", // HTTP method POST or GET
+    url: "php/read.php", //Where to make Ajax calls
+    dataType:"text", // Data type, HTML, json etc.
+    data: { 'idx': idx, 'type': 'thisArticle' }, //Form variables
+    success:function(response){
+        //$("#responds").append(response);
+        console.log(response);
+        //$(".title, .summary, #contentText").val(''); //empty text field on successful
+        //$("#FormSubmit").show(); //show submit button
+        //$("#LoadingImage").hide(); //hide loading image
+      },
+      error:function (xhr, ajaxOptions, thrownError){
+        $("#FormSubmit").show(); //show submit button
+        //$("#LoadingImage").hide(); //hide loading image
+        alert(thrownError);
+      }
+    });
+
 
   });
 
