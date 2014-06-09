@@ -4,19 +4,18 @@ include_once("classes/db_connect.php");
 $myDbConnect = new CRUD();
 $myDbConnect->dbConnect();
 
-$idx = $_POST['idx'];
-
 // säkerthets variabel för att echo:a ut rätt data
 $type = $_POST['type'];
 
-// fråga = visa all information i person
-$clickedArticle = json_encode(
-  $myDbConnect->select(
-  	 'SELECT * FROM articles WHERE id="'.$idx.'"'
-  )
+if ( $type === 'thisArticle' ){
+	$idx = $_POST['idx'];
+	// fråga = visa all information i person
+	$clickedArticle = json_encode(
+	  $myDbConnect->select(
+	  	 'SELECT * FROM articles WHERE id="'.$idx.'"'
+	  )
 );
 
-if ( $type === 'thisArticle' ){
 	echo($clickedArticle);
 }
 
