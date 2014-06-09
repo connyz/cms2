@@ -193,7 +193,7 @@ $(function(){
         return false;
     }
 
-    $("#FormSubmit").fadeOut(); //hide submit button
+    $("#FormSubmit").hide(); //hide submit button
     //$("#LoadingImage").show(); //show loading image
 
     var title = $(".title").val(); //build a post data structure
@@ -239,14 +239,36 @@ function clickEvents() {
     jQuery.ajax({
     type: "POST", // HTTP method POST or GET
     url: "php/read.php", //Where to make Ajax calls
-    dataType:"text", // Data type, HTML, json etc.
+    dataType:"json", // Data type, HTML, json etc.
     data: { 'idx': idx, 'type': 'thisArticle' }, //Form variables
     success:function(response){
         //$("#responds").append(response);
+
+        $(".admin-articles, .form_style").hide();
+
         console.log(response);
-        //$(".title, .summary, #contentText").val(''); //empty text field on successful
-        //$("#FormSubmit").show(); //show submit button
-        //$("#LoadingImage").hide(); //hide loading image
+        console.log( "title: ", response[0]['title'] );
+        console.log( "summary: ", response[0]['summary'] );
+        console.log( "content: ", response[0]['content'] );
+        console.log( "date: ", response[0]['publicationDate'] );
+        console.log( "id: ", response[0]['id'] );
+
+        var clickedArticleShow = "<form>";
+          clickedArticleShow += '<label>Title</label>' +
+          '<input type="text" class="updateTitle" name="title" value=' + response[0]['title'] + '><br>' +
+          '<label>Summary</label>' +
+          '<input type="text" class="updateSummary" name="summary" value=' + response[0]['summary'] + '><br>' +
+          '<label>Content</label>' +
+          '<textarea name="content_txt" id="updateContentText" cols="15" rows="5">'+ response[0]['content'] +'</textarea><br>' +
+          '<label>Date</label>' +
+          '<input class="updateDate" type="date" value=' + response[0]['publicationDate'] + '>' +
+          '<button id="FormUpdate">Update record</button>';
+        clickedArticleShow += "</form>";
+
+        $('.admincontent').append(clickedArticleShow);
+
+        updateArticle(response);
+
       },
       error:function (xhr, ajaxOptions, thrownError){
         $("#FormSubmit").show(); //show submit button
@@ -260,6 +282,42 @@ function clickEvents() {
 
 }
 
+
+//===============================================================================================UPDATE ARTICLE/
+
+function updateArticle(data){
+  $("#FormUpdate").click(function (e) {
+    e.preventDefault();
+    console.log(data);
+
+        var title = $(".updateTitle").val(); //build a post data structure
+        var summary = $(".updateSummary").val(); //build a post data structure
+        var content = $("#updateContentText").val(); //build a post data structure
+        var date = $(".updateDate").val(); //build a post data structure
+        var idx = data[0]['id'] ;
+
+    jQuery.ajax({
+    type: "POST", // HTTP method POST or GET
+    url: "php/create.php", //Where to make Ajax calls
+    dataType:"text", // Data type, HTML, json etc.
+    data: { 'title': title, 'summary': summary, 'content': content, 'date': date, 'idx': idx, 'type': 'update' }, //Form variables
+    success:function(data){
+
+        console.log('update success');
+
+
+
+      },
+      error:function (xhr, ajaxOptions, thrownError){
+        //$("#LoadingImage").hide(); //hide loading image
+        alert(thrownError);
+      }
+    });
+
+
+  });
+
+}
 
 
 
