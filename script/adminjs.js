@@ -255,9 +255,9 @@ function clickEvents() {
 
         var clickedArticleShow = "<form>";
           clickedArticleShow += '<label>Title</label>' +
-          '<input type="text" class="updateTitle" name="title" value=' + response[0]['title'] + '><br>' +
+          '<input type="text" class="updateTitle" name="title" value=" ' + response[0]['title']  + '"><br>' +
           '<label>Summary</label>' +
-          '<input type="text" class="updateSummary" name="summary" value=' + response[0]['summary'] + '><br>' +
+          '<input type="text" class="updateSummary" name="summary" value="' + response[0]['summary'] + '"><br>' +
           '<label>Content</label>' +
           '<textarea name="content_txt" id="updateContentText" cols="15" rows="5">'+ response[0]['content'] +'</textarea><br>' +
           '<label>Date</label>' +
@@ -304,6 +304,7 @@ function updateArticle(data){
     success:function(data){
 
         console.log('update success');
+        console.log(data);
 
 
 

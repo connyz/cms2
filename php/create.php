@@ -29,8 +29,12 @@ if ($type === "update"){
 	$date = $_POST['date'];
 	$idx = $_POST['idx'];
 
+	/*	echo $title;
+	echo $content;	*/
+
 	// " UPDATE articles SET title = '" . $title . "' , summary = '" . $summary . "', content = '" . $content . "', publicationDate = '" . $publicationDate . "' WHERE id= '" . $idx . "' ";
-	 " UPDATE articles SET title = '" . $title . "' , summary = '" . $summary . "', content = '" . $content . "', publicationDate = '" . $publicationDate . "' WHERE id= '" . $idx . "' ";
+	$sql = " UPDATE articles SET title = '" . $title . "' , summary = '" . $summary . "', content = '" . $content . "', publicationDate = '" . $publicationDate . "' WHERE id= '" . $idx . "' ";
+
 
 	  $myDbConnect->insertupdate( $sql );
 	  //echo "insert";
