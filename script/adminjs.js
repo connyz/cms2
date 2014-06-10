@@ -261,7 +261,7 @@ function clickEvents() {
           '<label>Content</label>' +
           '<textarea name="content_txt" id="updateContentText" cols="15" rows="5">'+ response[0]['content'] +'</textarea><br>' +
           '<label>Date</label>' +
-          '<input class="updateDate" type="date" value=' + response[0]['publicationDate'] + '>' +
+          '<input class="updateDate" type="date" value="' + response[0]['publicationDate'] + '">' +
           '<button id="FormUpdate">Update record</button>';
         clickedArticleShow += "</form>";
 
