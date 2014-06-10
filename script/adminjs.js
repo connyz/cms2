@@ -288,13 +288,13 @@ function clickEvents() {
 function updateArticle(data){
   $("#FormUpdate").click(function (e) {
     e.preventDefault();
-    console.log(data);
+    //console.log(data);
 
         var title = $(".updateTitle").val(); //build a post data structure
         var summary = $(".updateSummary").val(); //build a post data structure
         var content = $("#updateContentText").val(); //build a post data structure
         var date = $(".updateDate").val(); //build a post data structure
-        var idx = data[0]['id'] ;
+        var idx = data[0]['id'];
 
     jQuery.ajax({
     type: "POST", // HTTP method POST or GET

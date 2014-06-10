@@ -29,7 +29,7 @@ if ($type === "update"){
 	$date = $_POST['date'];
 	$idx = $_POST['idx'];
 
-	$sql = " UPDATE articles SET title = '" . $title . "' , summary = '" . $summary . "', content = '" . $content . "', publicationDate = '" . $publicationDate . "' WHERE id= '" . $idx . "' ";
+	$sql = "UPDATE articles SET title = '$title', summary = '$summary', content = '$content', publicationDate = '$date' WHERE id='$idx'";
 
   	$myDbConnect->insertupdate( $sql );
 }
