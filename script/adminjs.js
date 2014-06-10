@@ -137,7 +137,7 @@ $(function(){
   function readData(){
     $.ajax({
       type: "POST",
-      url: 'php/read.php',//the script to call to get data
+      url: 'php/queries.php',//the script to call to get data
       dataType: 'json',//data format
       data: { 'type': 'showAll' },
       success: function(data)//on recieve of reply
@@ -205,7 +205,7 @@ $(function(){
 
     jQuery.ajax({
     type: "POST", // HTTP method POST or GET
-    url: "php/create.php", //Where to make Ajax calls
+    url: "php/queries.php", //Where to make Ajax calls
     dataType:"text", // Data type, HTML, json etc.
     data: { 'title': title, 'summary': summary, 'content': content, 'date': date, 'type': 'insert' }, //Form variables
     success:function(response){
@@ -238,7 +238,7 @@ function clickEvents() {
 
     jQuery.ajax({
     type: "POST", // HTTP method POST or GET
-    url: "php/read.php", //Where to make Ajax calls
+    url: "php/queries.php", //Where to make Ajax calls
     dataType:"json", // Data type, HTML, json etc.
     data: { 'idx': idx, 'type': 'thisArticle' }, //Form variables
     success:function(response){
@@ -298,7 +298,7 @@ function updateArticle(data){
 
     jQuery.ajax({
     type: "POST", // HTTP method POST or GET
-    url: "php/create.php", //Where to make Ajax calls
+    url: "php/queries.php", //Where to make Ajax calls
     dataType:"text", // Data type, HTML, json etc.
     data: { 'title': title, 'summary': summary, 'content': content, 'date': date, 'idx': idx, 'type': 'update' }, //Form variables
     success:function(data){
