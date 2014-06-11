@@ -163,7 +163,6 @@ $(function(){
       {
         //console.log(data);
         tableOfDataAdmin(data);
-        clickEvents();
       },
       error:function (xhr, ajaxOptions, thrownError){
         alert(thrownError);
@@ -172,6 +171,7 @@ $(function(){
   }
 
   readData();
+  clickEvents();
 
   function tableOfDataAdmin(data){
     console.log("from the function tableOfDataAdmin ",data);
@@ -303,7 +303,6 @@ function clickEvents() {
     $(this).closest("tr").remove();
     // Start ajax request
     jQuery.ajax({
-    //async: false,
     type: "POST", // HTTP method POST or GET
     url: "php/queries.php", //Where to make Ajax calls
     dataType:"text", // Data type, HTML, json etc.
