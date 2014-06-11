@@ -1,26 +1,33 @@
+html {
+	height:100%;
+
+}
+
+body {
+	height: 100%;
+	width: 100%;
+}
 
 h1 {
 	font-size: 30px;
 	margin: 0;
 }
 
-html {
-	height:100%;
+.centerized {
+	/*max-width: 960px;*/
+	margin: 0 auto;
+}
+
+/*************************************************** ADMIN HEADER */
+
+
+
+.admin-navigation {
 	width: 100%;
+	min-height: 100px;
 }
 
-body {
-	height: 100%;
-	width: 100%;
 
-}
-
-div div {
-	margin-top: 20px;
-	margin: 0;
-	padding: 0;
-	border: 0;
-}
 
 label, input {
 	display:block;
@@ -28,8 +35,7 @@ label, input {
 
 form {
 	margin-top:20px;
-	border:1px solid #000;
-	width:200px
+
 }
 
 .article-id {
@@ -37,27 +43,12 @@ form {
 	width:200px;
 }
 
-#header {
-	text-align: left;
-	height: 70px;
-	margin: 0;
-	padding: 0;
-	background-color: #CAD19D;
-}
 
-#navigation {
-	float: left;
-	width: 150px;
-	height: 600px;
-	background-color: #A9BCE8;
-}
 
 #maincontent {
 	background-color: #F7C3C3;
-	width: 100%;
-	height: 600px;
-	margin: 0;
-	padding: 0;
+	margin: 50px auto;
+
 }
 
 #footer {
@@ -72,17 +63,16 @@ form {
 }
 
 .loggedout {
-	padding-left: 200px;
+	padding-left: 15px;
 }
 
 .loginform {
-	padding-left: 200px;
-	height: 300px;
-	width: 300px;
+
+	width: 100%;
 }
 
 .admincontent {
-	padding-left: 200px;
+
 }
 
 

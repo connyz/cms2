@@ -12,12 +12,19 @@ $(function(){
   // and show different things accordingly:
   if(user){
     // Html for adminarea
-    var adminContent =
+    var adminUser =
     '<div class="admincontent">' +
-      'Du är inloggad som ' + user + '.' +
-      '<div class="logout">Logga ut</div>' +
+      'Du är inloggad som ' + user +
+    '</div>';
 
-      '<h3>Articles</h3>' +
+    // Add content to page
+    $('.loggin-text-and-function').append(adminUser);
+
+    var adminLogout = '<div class="logout">Logga ut</div>';
+    $('.logout').append(adminLogout);
+
+    var adminContent =
+    '<h3>Articles</h3>' +
       '<div class="admin-articles"></div><br>' +
       '<div class="form_style">' +
         '<form>' +
@@ -31,27 +38,39 @@ $(function(){
           '<input class="date" type="date">' +
           '<button id="FormSubmit">Add record</button>' +
         '</form>' +
-      '</div>' +
-    '</div>';
+      '</div>';
+
     // Add content to page
     $('#maincontent').append(adminContent);
   }
   else {
     var loggedOut = '<div class="loggedout">' +
-    'Du är inte inloggad.' +
-    '<div class="login">Logga in.</div></div>';
-    $('#maincontent').append(loggedOut);
+    'Du är inte inloggad' +
+    '</div>';
+    $('.loggin-text-and-function').append(loggedOut);
+
+    var adminLogin = '<div class="login">Logga in</div></div>';
+    $('.logintext').append(adminLogin);
+
   }
 
   // A form for registration/login
   var form = $(
+    '<div class="row">' +
+    '<div class="col-sm-4"></div>' +
+    '<div class="col-sm-4">' +
+
     '<form class="loginform">' +
     '<label for="username">Användarnamn:</label>' +
-    '<input type="text" id="username" name="username">' +
+    '<input class="col-xs-12" type="text" id="username" name="username" placeholder="Användarnamn">' +
     '<label for="password">password:</label>' +
-    '<input type="text" id="password" name="password">' +
+    '<input class="col-xs-12" type="text" id="password" name="password" placeholder="Lösenord">' +
     '<input class="submit" type="submit" value="Skicka">' +
-    '</form>'
+    '</form>' +
+
+    '</div>' +
+    '<div class="col-sm-4"></div>' +
+    '</div>'
   );
 
  // When the user clicks login
@@ -265,7 +284,7 @@ function clickEvents() {
           '<button id="FormUpdate">Update record</button>';
         clickedArticleShow += "</form>";
 
-        $('.admincontent').append(clickedArticleShow);
+        $('#maincontent').append(clickedArticleShow);
 
         updateArticle(response);
 
