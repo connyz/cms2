@@ -176,7 +176,6 @@ $(function(){
   function tableOfDataAdmin(data){
     console.log("from the function tableOfDataAdmin ",data);
 
-
     var tableOfTheArticles = "<table>";
     tableOfTheArticles += "<thead><tr>" +
     "<th>Publication Date</th>" +
@@ -189,6 +188,7 @@ $(function(){
       "<td>" + data[i].publicationDate + "</td>" +
       "<td>" + data[i].title + "</td>" +
       '<td class="article-id">' + data[i].id + "</td>" +
+      "<td><button id='editB'>Edit</button><button id='deleteB'>Delete</button></td>" +
       "</tr>";
 
       // ta fram id
@@ -249,11 +249,11 @@ $(function(){
 
 
 function clickEvents() {
-
-  $(".admin-articles").on('click', 'table tr', function(){
+  // Event when pushing editbutton on article row
+  $(".admin-articles").on('click', '#editB', function(){
     //console.log( $(this).text());
 
-    var idx = $(this).find(".article-id").text();
+    var idx = $(this).closest("tr").find(".article-id").text();
     console.log(idx);
 
     jQuery.ajax({
@@ -263,10 +263,7 @@ function clickEvents() {
     data: { 'idx': idx, 'type': 'thisArticle' }, //Form variables
     success:function(response){
         //$("#responds").append(response);
-
         $(".admin-articles, .form_style").hide();
-
-
         console.log(response);
         console.log( "title: ", response[0]['title'] );
         console.log( "summary: ", response[0]['summary'] );
@@ -289,7 +286,6 @@ function clickEvents() {
         $('#maincontent').append(clickedArticleShow);
 
         updateArticle(response);
-
       },
       error:function (xhr, ajaxOptions, thrownError){
         $("#FormSubmit").show(); //show submit button
@@ -297,10 +293,29 @@ function clickEvents() {
         alert(thrownError);
       }
     });
-
-
   });
 
+  // Event when clicking deletebutton on article row
+  $(".admin-articles").on('click', '#deleteB', function(){
+    // Find id of clicked row
+    var idx = $(this).closest("tr").find(".article-id").text();
+    // Remove tablerow after getting id
+    $(this).closest("tr").remove();
+    // Start ajax request
+    jQuery.ajax({
+    //async: false,
+    type: "POST", // HTTP method POST or GET
+    url: "php/queries.php", //Where to make Ajax calls
+    dataType:"text", // Data type, HTML, json etc.
+    data: { 'idx': idx, 'type': 'deleteArticle' }, //Form variables
+    success:function(response){
+        console.log("Article deleted from db");
+      },
+      error:function (xhr, ajaxOptions, thrownError){
+        alert(thrownError);
+      }
+    });
+  });
 }
 
 
@@ -327,18 +342,13 @@ function updateArticle(data){
         console.log('update success');
         console.log(data);
 
-
-
       },
       error:function (xhr, ajaxOptions, thrownError){
         //$("#LoadingImage").hide(); //hide loading image
         alert(thrownError);
       }
     });
-
-
   });
-
 }
 
 

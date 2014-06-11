@@ -57,6 +57,18 @@ if ( $type === "showAll" ){
 	echo($show);
 }
 
+// Kolla om $type är lika med "deleteArticle", isf ta bort rad från articletabellen
+if ( $type === "deleteArticle" ){
+	// Set idx variable to recieved id
+	$idx = $_POST['idx'];
+
+	// Set query
+	$sql = "DELETE FROM articles WHERE id='$idx'";
+
+	// Send query
+	$myDbConnect->insertupdate( $sql );
+}
+
 
 /*
 $values = array();
