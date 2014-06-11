@@ -176,6 +176,7 @@ $(function(){
   function tableOfDataAdmin(data){
     console.log("from the function tableOfDataAdmin ",data);
 
+
     var tableOfTheArticles = "<table>";
     tableOfTheArticles += "<thead><tr>" +
     "<th>Publication Date</th>" +
@@ -264,6 +265,7 @@ function clickEvents() {
         //$("#responds").append(response);
 
         $(".admin-articles, .form_style").hide();
+
 
         console.log(response);
         console.log( "title: ", response[0]['title'] );
