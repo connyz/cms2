@@ -202,6 +202,52 @@ $(function(){
     $('.admin-articles').html(tableOfTheArticles);
   }
 
+  // READ DATA FROM ARTICLE_DRAFTS ==================================================================================/
+ function readDraftData(){
+    $.ajax({
+      type: "POST",
+      url: 'php/queries.php',//the script to call to get data
+      dataType: 'json',//data format
+      data: { 'type': 'showAllDrafts' },
+      success: function(data)//on recieve of reply
+      {
+        //console.log(data);
+        tableOfDrafts(data);
+      },
+      error:function (xhr, ajaxOptions, thrownError){
+        alert(thrownError);
+      }
+    });
+  }
+
+  function tableOfDrafts(data){
+    //console.log("from the function tableOfDataAdmin ",data);
+
+    var tableOfTheArticles = "<table>";
+    tableOfTheArticles += "<thead><tr>" +
+    "<th>Publication Date</th>" +
+    "<th>Article</th>" +
+    "</tr></thead>";
+    // loop through result array
+    for(var i = 0; i < data.length; i++){
+      //console.log(data[i]);
+      tableOfTheArticles += '<tr>' +
+      "<td>" + data[i].publicationDate + "</td>" +
+      "<td>" + data[i].title + "</td>" +
+      '<td class="article-id">' + data[i].id + "</td>" +
+      "<td><button id='editB'>Edit</button><button id='deleteB'>Delete</button></td>" +
+      "</tr>";
+
+      // ta fram id
+      //console.log( data[i].id );
+    }
+
+    tableOfTheArticles += "</table>";
+    // add the html to the dom
+    // console.log(html);
+    $('.admin-articles').html(tableOfTheArticles);
+  }
+
 
 
   // CREATE AN ARTICLE ===============================================================================================/
@@ -246,9 +292,13 @@ $(function(){
   });
 
   // SAVE ARTICLE AS DRAFT ===============================================================================================/
-
   $("#FormSubmitDraft").click(function (e) {
     e.preventDefault();
+    if($(".title").val()==='')
+    {
+        alert("Please enter some title for draft!");
+        return false;
+    }
 
     $("#FormSubmitDraft").hide(); //hide submit button
 
@@ -271,130 +321,114 @@ $(function(){
         $("#FormSubmitDraft").show(); //show submit button
       },
       error:function (xhr, ajaxOptions, thrownError){
-        $("#FormSubmit").show(); //show submit button
+        $("#FormSubmitDraft").show(); //show submit button
         //$("#LoadingImage").hide(); //hide loading image
         alert(thrownError);
       }
     });
   });
 
+  // Click events below
   // SHOW THE CLICKED ARTICLE ===============================================================================================/
+  function clickEvents() {
+    // Event when pushing editbutton on article row
+    $(".admin-articles").on('click', '#editB', function(){
+      //console.log( $(this).text());
 
+      var idx = $(this).closest("tr").find(".article-id").text();
+      console.log(idx);
 
-function clickEvents() {
-  // Event when pushing editbutton on article row
-  $(".admin-articles").on('click', '#editB', function(){
-    //console.log( $(this).text());
+      jQuery.ajax({
+      type: "POST", // HTTP method POST or GET
+      url: "php/queries.php", //Where to make Ajax calls
+      dataType:"json", // Data type, HTML, json etc.
+      data: { 'idx': idx, 'type': 'thisArticle' }, //Form variables
+      success:function(response){
+          //$("#responds").append(response);
+          $(".admin-articles, .form_style").hide();
+          console.log(response);
+          console.log( "title: ", response[0]['title'] );
+          console.log( "summary: ", response[0]['summary'] );
+          console.log( "content: ", response[0]['content'] );
+          console.log( "date: ", response[0]['publicationDate'] );
+          console.log( "id: ", response[0]['id'] );
 
-    var idx = $(this).closest("tr").find(".article-id").text();
-    console.log(idx);
+          var clickedArticleShow = "<form>";
+            clickedArticleShow += '<label>Title</label>' +
+            '<input type="text" class="updateTitle" name="title" value=" ' + response[0]['title']  + '"><br>' +
+            '<label>Summary</label>' +
+            '<input type="text" class="updateSummary" name="summary" value="' + response[0]['summary'] + '"><br>' +
+            '<label>Content</label>' +
+            '<textarea name="content_txt" id="updateContentText" cols="15" rows="5">'+ response[0]['content'] +'</textarea><br>' +
+            '<label>Date</label>' +
+            '<input class="updateDate" type="date" value="' + response[0]['publicationDate'] + '">' +
+            '<button id="FormUpdate">Update record</button>';
+          clickedArticleShow += "</form>";
 
-    jQuery.ajax({
-    type: "POST", // HTTP method POST or GET
-    url: "php/queries.php", //Where to make Ajax calls
-    dataType:"json", // Data type, HTML, json etc.
-    data: { 'idx': idx, 'type': 'thisArticle' }, //Form variables
-    success:function(response){
-        //$("#responds").append(response);
-        $(".admin-articles, .form_style").hide();
-        console.log(response);
-        console.log( "title: ", response[0]['title'] );
-        console.log( "summary: ", response[0]['summary'] );
-        console.log( "content: ", response[0]['content'] );
-        console.log( "date: ", response[0]['publicationDate'] );
-        console.log( "id: ", response[0]['id'] );
+          $('#maincontent').append(clickedArticleShow);
 
-        var clickedArticleShow = "<form>";
-          clickedArticleShow += '<label>Title</label>' +
-          '<input type="text" class="updateTitle" name="title" value=" ' + response[0]['title']  + '"><br>' +
-          '<label>Summary</label>' +
-          '<input type="text" class="updateSummary" name="summary" value="' + response[0]['summary'] + '"><br>' +
-          '<label>Content</label>' +
-          '<textarea name="content_txt" id="updateContentText" cols="15" rows="5">'+ response[0]['content'] +'</textarea><br>' +
-          '<label>Date</label>' +
-          '<input class="updateDate" type="date" value="' + response[0]['publicationDate'] + '">' +
-          '<button id="FormUpdate">Update record</button>';
-        clickedArticleShow += "</form>";
-
-        $('#maincontent').append(clickedArticleShow);
-
-        updateArticle(response);
-      },
-      error:function (xhr, ajaxOptions, thrownError){
-        $("#FormSubmit").show(); //show submit button
-        //$("#LoadingImage").hide(); //hide loading image
-        alert(thrownError);
-      }
+          updateArticle(response);
+        },
+        error:function (xhr, ajaxOptions, thrownError){
+          $("#FormSubmit").show(); //show submit button
+          //$("#LoadingImage").hide(); //hide loading image
+          alert(thrownError);
+        }
+      });
     });
-  });
 
-  // Event when clicking deletebutton on article row ========================================/
-  $(".admin-articles").on('click', '#deleteB', function(){
-    // Find id of clicked row
-    var idx = $(this).closest("tr").find(".article-id").text();
-    // Remove tablerow after getting id
-    $(this).closest("tr").remove();
-    // Start ajax request
-    jQuery.ajax({
-    type: "POST", // HTTP method POST or GET
-    url: "php/queries.php", //Where to make Ajax calls
-    dataType:"text", // Data type, HTML, json etc.
-    data: { 'idx': idx, 'type': 'deleteArticle' }, //Form variables
-    success:function(response){
-        console.log("Article deleted from db");
-      },
-      error:function (xhr, ajaxOptions, thrownError){
-        alert(thrownError);
-      }
+    // Event when clicking deletebutton on article row ========================================/
+    $(".admin-articles").on('click', '#deleteB', function(){
+      // Find id of clicked row
+      var idx = $(this).closest("tr").find(".article-id").text();
+      // Remove tablerow after getting id
+      $(this).closest("tr").remove();
+      // Start ajax request
+      jQuery.ajax({
+      type: "POST", // HTTP method POST or GET
+      url: "php/queries.php", //Where to make Ajax calls
+      dataType:"text", // Data type, HTML, json etc.
+      data: { 'idx': idx, 'type': 'deleteArticle' }, //Form variables
+      success:function(response){
+          console.log("Article deleted from db");
+        },
+        error:function (xhr, ajaxOptions, thrownError){
+          alert(thrownError);
+        }
+      });
     });
-  });
-}
+  }
 
 
-// UPDATE ARTICLE ===============================================================================================/
+  // UPDATE ARTICLE ===============================================================================================/
+  function updateArticle(data){
+    $("#FormUpdate").click(function (e) {
+      e.preventDefault();
+      //console.log(data);
 
-function updateArticle(data){
-  $("#FormUpdate").click(function (e) {
-    e.preventDefault();
-    //console.log(data);
+          var title = $(".updateTitle").val(); //build a post data structure
+          var summary = $(".updateSummary").val(); //build a post data structure
+          var content = $("#updateContentText").val(); //build a post data structure
+          var date = $(".updateDate").val(); //build a post data structure
+          var idx = data[0]['id'];
 
-        var title = $(".updateTitle").val(); //build a post data structure
-        var summary = $(".updateSummary").val(); //build a post data structure
-        var content = $("#updateContentText").val(); //build a post data structure
-        var date = $(".updateDate").val(); //build a post data structure
-        var idx = data[0]['id'];
+      jQuery.ajax({
+      type: "POST", // HTTP method POST or GET
+      url: "php/queries.php", //Where to make Ajax calls
+      dataType:"text", // Data type, HTML, json etc.
+      data: { 'title': title, 'summary': summary, 'content': content, 'date': date, 'idx': idx, 'type': 'update' }, //Form variables
+      success:function(data){
 
-    jQuery.ajax({
-    type: "POST", // HTTP method POST or GET
-    url: "php/queries.php", //Where to make Ajax calls
-    dataType:"text", // Data type, HTML, json etc.
-    data: { 'title': title, 'summary': summary, 'content': content, 'date': date, 'idx': idx, 'type': 'update' }, //Form variables
-    success:function(data){
+          console.log('update success');
+          console.log(data);
 
-        console.log('update success');
-        console.log(data);
-
-      },
-      error:function (xhr, ajaxOptions, thrownError){
-        //$("#LoadingImage").hide(); //hide loading image
-        alert(thrownError);
-      }
+        },
+        error:function (xhr, ajaxOptions, thrownError){
+          //$("#LoadingImage").hide(); //hide loading image
+          alert(thrownError);
+        }
+      });
     });
-  });
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  }
 
 });

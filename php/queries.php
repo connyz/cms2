@@ -20,6 +20,18 @@ if ($type === "insert"){
 	  //echo "insert";
 }
 
+// Kolla om $type är lika med "draftinsert"
+if ($type === "draftinsert"){
+
+	$title = $_POST['title'];
+	$summary = $_POST['summary'];
+	$content = $_POST['content'];
+	$date = $_POST['date'];
+
+	$sql = "INSERT INTO article_drafts (publicationDate, title, summary, content) VALUES ('" . $date . "','" . $title . "','" . $summary . "','" . $content . "')";
+	  $myDbConnect->insupdel( $sql );
+}
+
 // Kolla om $type är lika med "update"
 if ($type === "update"){
 
@@ -52,6 +64,17 @@ if ( $type === "showAll" ){
 	$show = json_encode(
 	  $myDbConnect->select(
 	    'SELECT * FROM articles'
+	  )
+	);
+	echo($show);
+}
+
+// Kolla om $type är lika med "showalldrafts"
+if ( $type === "showAllDrafts" ){
+	// fråga = visa all information i person
+	$show = json_encode(
+	  $myDbConnect->select(
+	    'SELECT * FROM article_drafts'
 	  )
 	);
 	echo($show);
