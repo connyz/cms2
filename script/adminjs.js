@@ -205,6 +205,15 @@ $(function(){
 
   // READ & SHOW DATA FROM ARTICLE_DRAFTS ==================================================================================/
   function readDraftData(){
+
+    var adminContent =
+      '<div class="admin-articles"></div><br>' +
+      '<div class="form_style">' +
+      '</div>';
+
+    // Add content to page
+    $('#maincontent').append(adminContent);
+
     $.ajax({
       type: "POST",
       url: 'php/queries.php',//the script to call to get data
@@ -212,7 +221,7 @@ $(function(){
       data: { 'type': 'showAllDrafts' },
       success: function(data)//on recieve of reply
       {
-        //console.log(data);
+        console.log("ajax Success?");
         tableOfDrafts(data);
       },
       error:function (xhr, ajaxOptions, thrownError){
@@ -261,8 +270,9 @@ $(function(){
         return false;
     }
 
-    $("#FormSubmit").hide(); //hide submit button
-    //$("#LoadingImage").show(); //show loading image
+    $("#FormSubmit").hide(); // hide submit button
+    $("#FormSubmitDraft").hide(); // hide savedraft-button
+    //$("#LoadingImage").show(); // show loading image
 
     var title = $(".title").val(); //build a post data structure
     var summary = $(".summary").val(); //build a post data structure
@@ -281,6 +291,7 @@ $(function(){
         console.log(response);
         $(".title, .summary, #contentText").val(''); //empty text field on successful
         $("#FormSubmit").show(); //show submit button
+        $("#FormSubmitDraft").show(); //show draft button
         //$("#LoadingImage").hide(); //hide loading image
         readData();
       },
