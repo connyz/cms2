@@ -150,10 +150,14 @@ $(function(){
 
 
 
-// READ DATA FROM DATABASE ==========================================================================================================/
+  // READ DATA FROM DATABASE ==========================================================================================================/
   // För att hämta information från phpDisplay genom ajax
   // skickar datan (som är objekt på varje rad i databasen) till funktionen tableOfDataAdmin
   // som jag sedan visar geno att använda html till diven på adminsidan
+
+  readData();
+  clickEvents();
+
   function readData(){
     $.ajax({
       type: "POST",
@@ -170,9 +174,6 @@ $(function(){
       }
     });
   }
-
-  readData();
-  clickEvents();
 
   function tableOfDataAdmin(data){
     //console.log("from the function tableOfDataAdmin ",data);
@@ -202,8 +203,8 @@ $(function(){
     $('.admin-articles').html(tableOfTheArticles);
   }
 
-  // READ DATA FROM ARTICLE_DRAFTS ==================================================================================/
- function readDraftData(){
+  // READ & SHOW DATA FROM ARTICLE_DRAFTS ==================================================================================/
+  function readDraftData(){
     $.ajax({
       type: "POST",
       url: 'php/queries.php',//the script to call to get data
@@ -235,7 +236,7 @@ $(function(){
       "<td>" + data[i].publicationDate + "</td>" +
       "<td>" + data[i].title + "</td>" +
       '<td class="article-id">' + data[i].id + "</td>" +
-      "<td><button id='editB'>Edit</button><button id='deleteB'>Delete</button></td>" +
+      "<td><button id='editDraftB'>Edit draft</button><button id='deleteDraftB'>Delete draft</button></td>" +
       "</tr>";
 
       // ta fram id
@@ -385,11 +386,11 @@ $(function(){
       $(this).closest("tr").remove();
       // Start ajax request
       jQuery.ajax({
-      type: "POST", // HTTP method POST or GET
-      url: "php/queries.php", //Where to make Ajax calls
-      dataType:"text", // Data type, HTML, json etc.
-      data: { 'idx': idx, 'type': 'deleteArticle' }, //Form variables
-      success:function(response){
+        type: "POST", // HTTP method POST or GET
+        url: "php/queries.php", //Where to make Ajax calls
+        dataType:"text", // Data type, HTML, json etc.
+        data: { 'idx': idx, 'type': 'deleteArticle' }, //Form variables
+        success:function(response){
           console.log("Article deleted from db");
         },
         error:function (xhr, ajaxOptions, thrownError){
@@ -397,7 +398,14 @@ $(function(){
         }
       });
     });
-  }
+
+    // Event when clicking DRAFT LIST in navigation ======================================================/
+    $("#drafts").click(function(){
+      $(".admin-articles, .form_style").remove();
+      readDraftData();
+    });
+
+  }// End of clickevents
 
 
   // UPDATE ARTICLE ===============================================================================================/
@@ -406,18 +414,18 @@ $(function(){
       e.preventDefault();
       //console.log(data);
 
-          var title = $(".updateTitle").val(); //build a post data structure
-          var summary = $(".updateSummary").val(); //build a post data structure
-          var content = $("#updateContentText").val(); //build a post data structure
-          var date = $(".updateDate").val(); //build a post data structure
-          var idx = data[0]['id'];
+      var title = $(".updateTitle").val(); //build a post data structure
+      var summary = $(".updateSummary").val(); //build a post data structure
+      var content = $("#updateContentText").val(); //build a post data structure
+      var date = $(".updateDate").val(); //build a post data structure
+      var idx = data[0]['id'];
 
       jQuery.ajax({
       type: "POST", // HTTP method POST or GET
       url: "php/queries.php", //Where to make Ajax calls
       dataType:"text", // Data type, HTML, json etc.
       data: { 'title': title, 'summary': summary, 'content': content, 'date': date, 'idx': idx, 'type': 'update' }, //Form variables
-      success:function(data){
+        success:function(data){
 
           console.log('update success');
           console.log(data);
