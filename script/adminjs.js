@@ -36,7 +36,7 @@ $(function(){
           '<textarea name="content_txt" id="contentText" cols="15" rows="5"></textarea><br>' +
           '<label>Date</label>' +
           '<input class="date" type="date">' +
-          '<button id="FormSubmit">Add record</button>' +
+          '<button id="FormSubmit">Create article</button>' +
         '</form>' +
       '</div>';
 
@@ -174,7 +174,7 @@ $(function(){
   clickEvents();
 
   function tableOfDataAdmin(data){
-    console.log("from the function tableOfDataAdmin ",data);
+    //console.log("from the function tableOfDataAdmin ",data);
 
     var tableOfTheArticles = "<table>";
     tableOfTheArticles += "<thead><tr>" +
