@@ -37,6 +37,7 @@ $(function(){
           '<label>Date</label>' +
           '<input class="date" type="date">' +
           '<button id="FormSubmit">Create article</button>' +
+          '<button id="FormSubmitDraft">Save as draft</button>' +
         '</form>' +
       '</div>';
 

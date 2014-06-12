@@ -16,7 +16,7 @@ if ($type === "insert"){
 	$date = $_POST['date'];
 
 	$sql = "INSERT INTO articles (publicationDate, title, summary, content) VALUES ('" . $date . "','" . $title . "','" . $summary . "','" . $content . "')";
-	  $myDbConnect->insertupdate( $sql );
+	  $myDbConnect->insupdel( $sql );
 	  //echo "insert";
 }
 
@@ -31,7 +31,7 @@ if ($type === "update"){
 
 	$sql = "UPDATE articles SET title = '$title', summary = '$summary', content = '$content', publicationDate = '$date' WHERE id='$idx'";
 
-  	$myDbConnect->insertupdate( $sql );
+  	$myDbConnect->insupdel( $sql );
 }
 
 // Kolla om $type är lika med "thisArticle"
@@ -66,7 +66,7 @@ if ( $type === "deleteArticle" ){
 	$sql = "DELETE FROM articles WHERE id='$idx'";
 
 	// Send query
-	$myDbConnect->insertupdate( $sql );
+	$myDbConnect->insupdel( $sql );
 }
 
 

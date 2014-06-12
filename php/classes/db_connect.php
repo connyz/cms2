@@ -20,7 +20,7 @@ class CRUD {
     return $result;
   }
 
-  public function insertupdate($sql){
+  public function insupdel($sql){
     $query = $this->myPDO->prepare($sql);
     $query->execute();
   }
