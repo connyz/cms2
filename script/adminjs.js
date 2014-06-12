@@ -150,7 +150,7 @@ $(function(){
 
 
 
-//==========================================================================================================READ DATA FROM DATABASE/
+// READ DATA FROM DATABASE ==========================================================================================================/
   // För att hämta information från phpDisplay genom ajax
   // skickar datan (som är objekt på varje rad i databasen) till funktionen tableOfDataAdmin
   // som jag sedan visar geno att använda html till diven på adminsidan
@@ -204,7 +204,7 @@ $(function(){
 
 
 
-//===============================================================================================CREATE AN ARTICLE /
+  // CREATE AN ARTICLE ===============================================================================================/
   //##### send add record Ajax request to create.php #########
   $("#FormSubmit").click(function (e) {
     e.preventDefault();
@@ -222,7 +222,7 @@ $(function(){
     var content = $("#contentText").val(); //build a post data structure
     var date = $(".date").val(); //build a post data structure
 
-    console.log(content, title, summary, date);
+    //console.log(content, title, summary, date);
 
     jQuery.ajax({
     type: "POST", // HTTP method POST or GET
@@ -245,8 +245,40 @@ $(function(){
     });
   });
 
+  // SAVE ARTICLE AS DRAFT ===============================================================================================/
 
-//===============================================================================================SHOW THE CLICKED ARTICLE/
+  $("#FormSubmitDraft").click(function (e) {
+    e.preventDefault();
+
+    $("#FormSubmitDraft").hide(); //hide submit button
+
+    var title = $(".title").val(); //build a post data structure
+    var summary = $(".summary").val(); //build a post data structure
+    var content = $("#contentText").val(); //build a post data structure
+    var date = $(".date").val(); //build a post data structure
+
+    console.log(content, title, summary, date);
+
+    jQuery.ajax({
+    type: "POST", // HTTP method POST or GET
+    url: "php/queries.php", //Where to make Ajax calls
+    dataType:"text", // Data type, HTML, json etc.
+    data: { 'title': title, 'summary': summary, 'content': content, 'date': date, 'type': 'draftinsert' }, //Form variables
+    success:function(response){
+        //$("#responds").append(response);
+        console.log(response);
+        $(".title, .summary, #contentText").val(''); //empty text field on successful
+        $("#FormSubmitDraft").show(); //show submit button
+      },
+      error:function (xhr, ajaxOptions, thrownError){
+        $("#FormSubmit").show(); //show submit button
+        //$("#LoadingImage").hide(); //hide loading image
+        alert(thrownError);
+      }
+    });
+  });
+
+  // SHOW THE CLICKED ARTICLE ===============================================================================================/
 
 
 function clickEvents() {
@@ -296,7 +328,7 @@ function clickEvents() {
     });
   });
 
-  // Event when clicking deletebutton on article row
+  // Event when clicking deletebutton on article row ========================================/
   $(".admin-articles").on('click', '#deleteB', function(){
     // Find id of clicked row
     var idx = $(this).closest("tr").find(".article-id").text();
@@ -319,7 +351,7 @@ function clickEvents() {
 }
 
 
-//===============================================================================================UPDATE ARTICLE/
+// UPDATE ARTICLE ===============================================================================================/
 
 function updateArticle(data){
   $("#FormUpdate").click(function (e) {
