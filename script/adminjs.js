@@ -367,6 +367,7 @@ $(function(){
           $("#FormSubmitDraft").show(); //show submit button
         },
        error:function (xhr, ajaxOptions, thrownError){
+        $("#FormSubmit").show(); //show submit button
         $("#FormSubmitDraft").show(); //show submit button
         //$("#LoadingImage").hide(); //hide loading image
         alert(thrownError);
@@ -560,7 +561,7 @@ $(function(){
   function publishArticleDraft(data){
     $("#FormUpdateDraftPublish").click(function (e) {
       e.preventDefault();
-      console.log("function running?");
+      //console.log("function running?");
 
       var title = $(".updateTitle").val(); //build a post data structure
       var summary = $(".updateSummary").val(); //build a post data structure
@@ -576,6 +577,7 @@ $(function(){
         success:function(data){
           console.log('draft updated and published');
           console.log(data);
+          window.location.href="http://localhost/git/cms2/index.html";
         },
         error:function (xhr, ajaxOptions, thrownError){
           alert(thrownError);
