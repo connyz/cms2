@@ -25,21 +25,8 @@ $(function(){
 
     var adminContent =
     '<h3>Articles</h3>' +
-      '<div class="admin-articles"></div><br>' +
-      '<div class="form_style">' +
-        '<form>' +
-          '<label>Title</label>' +
-          '<input type="text" class="title" name="title"><br>' +
-          '<label>Summary</label>' +
-          '<input type="text" class="summary" name="summary"><br>' +
-          '<label>Content</label>' +
-          '<textarea name="content_txt" id="contentText" cols="15" rows="5"></textarea><br>' +
-          '<label>Date</label>' +
-          '<input class="date" type="date">' +
-          '<button id="FormSubmit">Create article</button>' +
-          '<button id="FormSubmitDraft">Save as draft</button>' +
-        '</form>' +
-      '</div>';
+      '<div class="admin-articles"></div><br>'
+      ;
 
     // Add content to page
     $('#maincontent').append(adminContent);
@@ -272,7 +259,27 @@ $(function(){
     $('.admin-articles').html(tableOfTheArticles);
   }
 
+  // ADD NEW ARTICLE =================================================================================================/
 
+  $('.new-article-btn-menu').click( function(){
+    var addFormForNewArticle =
+      '<div class="form_style">' +
+        '<form>' +
+          '<label>Title</label>' +
+          '<input type="text" class="title" name="title"><br>' +
+          '<label>Summary</label>' +
+          '<input type="text" class="summary" name="summary"><br>' +
+          '<label>Content</label>' +
+          '<textarea name="content_txt" id="contentText" cols="15" rows="5"></textarea><br>' +
+          '<label>Date</label>' +
+          '<input class="date" type="date">' +
+          '<button id="FormSubmit">Create article</button>' +
+          '<button id="FormSubmitDraft">Save as draft</button>' +
+        '</form>' +
+      '</div>';
+
+      $('.admin-articles').html(addFormForNewArticle);
+  });
 
   // CREATE AN ARTICLE ===============================================================================================/
   //##### send add record Ajax request to create.php #########
