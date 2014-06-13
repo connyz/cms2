@@ -25,7 +25,7 @@ $(function(){
 
     var adminContent =
     '<h3>Articles</h3>' +
-      '<div class="admin-articles"></div><br>' +
+      '<div class="admin-articles"></div>' +
       '<div class="form_style">' +
         '<form>' +
           '<label>Title</label>' +
@@ -207,7 +207,7 @@ $(function(){
   function readDraftData(){
 
     var adminContent =
-      '<div class="admin-articles"></div><br>' +
+      '<div class="admin-articles"></div>' +
       '<div class="form_style">' +
       '</div>';
 
@@ -282,19 +282,19 @@ $(function(){
     //console.log(content, title, summary, date);
 
     jQuery.ajax({
-    type: "POST", // HTTP method POST or GET
-    url: "php/queries.php", //Where to make Ajax calls
-    dataType:"text", // Data type, HTML, json etc.
-    data: { 'title': title, 'summary': summary, 'content': content, 'date': date, 'type': 'insert' }, //Form variables
-    success:function(response){
-        //$("#responds").append(response);
-        console.log(response);
-        $(".title, .summary, #contentText").val(''); //empty text field on successful
-        $("#FormSubmit").show(); //show submit button
-        $("#FormSubmitDraft").show(); //show draft button
-        //$("#LoadingImage").hide(); //hide loading image
-        readData();
-      },
+      type: "POST", // HTTP method POST or GET
+      url: "php/queries.php", //Where to make Ajax calls
+      dataType:"text", // Data type, HTML, json etc.
+      data: { 'title': title, 'summary': summary, 'content': content, 'date': date, 'type': 'insert' }, //Form variables
+      success:function(response){
+          //$("#responds").append(response);
+          console.log(response);
+          $(".title, .summary, #contentText").val(''); //empty text field on successful
+          $("#FormSubmit").show(); //show submit button
+          $("#FormSubmitDraft").show(); //show draft button
+          //$("#LoadingImage").hide(); //hide loading image
+          readData();
+        },
       error:function (xhr, ajaxOptions, thrownError){
         $("#FormSubmit").show(); //show submit button
         //$("#LoadingImage").hide(); //hide loading image
@@ -312,7 +312,9 @@ $(function(){
         return false;
     }
 
-    $("#FormSubmitDraft").hide(); //hide submit button
+    // Hide submitbuttons on form
+    $("#FormSubmit").hide();
+    $("#FormSubmitDraft").hide();
 
     var title = $(".title").val(); //build a post data structure
     var summary = $(".summary").val(); //build a post data structure
@@ -322,17 +324,17 @@ $(function(){
     console.log(content, title, summary, date);
 
     jQuery.ajax({
-    type: "POST", // HTTP method POST or GET
-    url: "php/queries.php", //Where to make Ajax calls
-    dataType:"text", // Data type, HTML, json etc.
-    data: { 'title': title, 'summary': summary, 'content': content, 'date': date, 'type': 'draftinsert' }, //Form variables
-    success:function(response){
-        //$("#responds").append(response);
-        console.log(response);
-        $(".title, .summary, #contentText").val(''); //empty text field on successful
-        $("#FormSubmitDraft").show(); //show submit button
-      },
-      error:function (xhr, ajaxOptions, thrownError){
+      type: "POST", // HTTP method POST or GET
+      url: "php/queries.php", //Where to make Ajax calls
+      dataType:"text", // Data type, HTML, json etc.
+      data: { 'title': title, 'summary': summary, 'content': content, 'date': date, 'type': 'draftinsert' }, //Form variables
+      success:function(response){
+          //$("#responds").append(response);
+          console.log(response);
+          $(".title, .summary, #contentText").val(''); //empty text field on successful
+          $("#FormSubmitDraft").show(); //show submit button
+        },
+       error:function (xhr, ajaxOptions, thrownError){
         $("#FormSubmitDraft").show(); //show submit button
         //$("#LoadingImage").hide(); //hide loading image
         alert(thrownError);
@@ -413,6 +415,7 @@ $(function(){
     // Event when clicking DRAFT LIST in navigation ======================================================/
     $("#drafts").click(function(){
       $(".admin-articles, .form_style").remove();
+      $("#maincontent>h3:first").html("Drafts");
       readDraftData();
     });
 
