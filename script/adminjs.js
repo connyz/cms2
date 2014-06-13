@@ -235,7 +235,6 @@ $(function(){
       data: { 'type': 'showAllDrafts' },
       success: function(data)//on recieve of reply
       {
-        console.log("ajax Success?");
         tableOfDrafts(data);
       },
       error:function (xhr, ajaxOptions, thrownError){
@@ -273,7 +272,6 @@ $(function(){
   }
 
   // ADD NEW ARTICLE =================================================================================================/
-
   $('.new-article-btn-menu').click( function(){
     var addFormForNewArticle =
       '<div class="form_style">' +
@@ -376,7 +374,6 @@ $(function(){
     });
   });
 
-  // Click events below
   // SHOW THE CLICKED ARTICLE ===============================================================================================/
   function clickEvents() {
     // Event when pushing editbutton on article row
@@ -426,7 +423,7 @@ $(function(){
     });
 
     // Event when clicking deletebutton on article row ========================================/
-    $(".admin-articles").on('click', '#deleteB', function(){
+    $(document).on('click', '#deleteB, #deleteDraftB', function(){
       // Find id of clicked row
       var idx = $(this).closest("tr").find(".article-id").text();
       // Remove tablerow after getting id
@@ -450,6 +447,12 @@ $(function(){
     $("#drafts").click(function(){
       $(".admin-articles, .form_style").remove();
       $("#maincontent>h3:first").html("Drafts");
+      readDraftData();
+    });
+
+    // Event when clicking Edit draft button ======================================================/
+    $("#editDraftB").click(function(){
+
       readDraftData();
     });
 
