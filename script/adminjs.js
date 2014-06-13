@@ -298,9 +298,9 @@ $(function(){
   //##### send add record Ajax request to create.php #########
   $("#FormSubmit").click(function (e) {
     e.preventDefault();
-    if($("#contentText").val()==='')
+    if($(".title").val()==='')
     {
-        alert("Please enter some text!");
+        alert("Please enter some title for article!");
         return false;
     }
 

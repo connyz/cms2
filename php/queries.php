@@ -15,7 +15,7 @@ if ($type === "insert"){
 	$content = $_POST['content'];
 	$date = $_POST['date'];
 
-	$sql = "INSERT INTO articles (publicationDate, title, summary, content) VALUES ('" . $date . "','" . $title . "','" . $summary . "','" . $content . "')";
+	$sql = "INSERT INTO articles (publicationDate, title, summary, content, status) VALUES ('" . $date . "','" . $title . "','" . $summary . "','" . $content . "','" . "PUBLISHED" . "')";
 	  $myDbConnect->insupdel( $sql );
 	  //echo "insert";
 }
@@ -28,7 +28,7 @@ if ($type === "draftinsert"){
 	$content = $_POST['content'];
 	$date = $_POST['date'];
 
-	$sql = "INSERT INTO article_drafts (publicationDate, title, summary, content) VALUES ('" . $date . "','" . $title . "','" . $summary . "','" . $content . "')";
+	$sql = "INSERT INTO articles (publicationDate, title, summary, content, status) VALUES ('" . $date . "','" . $title . "','" . $summary . "','" . $content . "','" . "DRAFT" . "')";
 	  $myDbConnect->insupdel( $sql );
 }
 
@@ -63,7 +63,7 @@ if ( $type === "showAll" ){
 	// fråga = visa all information i person
 	$show = json_encode(
 	  $myDbConnect->select(
-	    'SELECT * FROM articles'
+	    'SELECT * FROM articles WHERE status="PUBLISHED"'
 	  )
 	);
 	echo($show);
@@ -74,7 +74,7 @@ if ( $type === "showAllDrafts" ){
 	// fråga = visa all information i person
 	$show = json_encode(
 	  $myDbConnect->select(
-	    'SELECT * FROM article_drafts'
+	    'SELECT * FROM articles WHERE status="DRAFT"'
 	  )
 	);
 	echo($show);
