@@ -45,13 +45,27 @@ $(function(){
     $('#maincontent').append(adminContent);
   }
   else {
-    var loggedOut = '<div class="loggedout">' +
-    'Du är inte inloggad' +
-    '</div>';
-    $('.loggin-text-and-function').append(loggedOut);
+    $( '.centerized' ).hide();
 
-    var adminLogin = '<div class="login">Logga in</div></div>';
-    $('.logintext').append(adminLogin);
+    var loggedOut =
+    '<div class="row">' +
+      '<div class="col-sm-4"></div>' +
+      '<div class="loggedout col-sm-4">' +
+        'Du är inte inloggad logga in' +
+        '<button class="login">här!</button>' +
+      '</div>' +
+    '</div>'
+      ;
+    $('.login-div').append(loggedOut); //.loggin-text-and-function
+
+    /*
+    var adminLogin =
+    '<div class="row">' +
+    '<div class="col-sm-4"></div>' +
+      '<div class="login col-sm-4"><button>Logga in</button></div></div>' +
+    '</div>';
+    $('.login-div').append(adminLogin); //.logintext
+    */
 
   }
 
@@ -78,7 +92,7 @@ $(function(){
   $('.login').click(function(){
     form.find('.submit').val("Logga in");
     form.submit(loginAttempt);
-    form.appendTo('#maincontent');
+    form.appendTo('.login-div'); //#maincontent
   });
 
   // Do on login attempt
