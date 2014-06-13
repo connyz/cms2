@@ -46,6 +46,20 @@ if ($type === "update"){
   	$myDbConnect->insupdel( $sql );
 }
 
+// Kolla om $type är lika med "draftSavePublish"
+if ($type === "draftSavePublish"){
+
+	$title = $_POST['title'];
+	$summary = $_POST['summary'];
+	$content = $_POST['content'];
+	$date = $_POST['date'];
+	$idx = $_POST['idx'];
+
+	$sql = "UPDATE articles SET title = '$title', summary = '$summary', content = '$content', publicationDate = '$date', Status='PUBLISHED' WHERE id='$idx'";
+
+  	$myDbConnect->insupdel( $sql );
+}
+
 // Kolla om $type är lika med "thisArticle"
 if ( $type === "thisArticle" ){
 	$idx = $_POST['idx'];

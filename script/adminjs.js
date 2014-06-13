@@ -422,7 +422,47 @@ $(function(){
       });
     });
 
-    // Event when clicking deletebutton on article row ========================================/
+    // Event when pushing edit draft on draft list
+    $(document).on('click', '#editDraftB', function(){
+      //console.log( $(this).text());
+
+      var idx = $(this).closest("tr").find(".article-id").text();
+      console.log(idx);
+
+      jQuery.ajax({
+      type: "POST", // HTTP method POST or GET
+      url: "php/queries.php", //Where to make Ajax calls
+      dataType:"json", // Data type, HTML, json etc.
+      data: { 'idx': idx, 'type': 'thisArticle' }, //Form variables
+      success:function(response){
+          $(".admin-articles, .form_style").hide();
+
+          var clickedArticleShow = "<form>";
+            clickedArticleShow += '<label>Title</label>' +
+            '<input type="text" class="updateTitle" name="title" value=" ' + response[0]['title']  + '"><br>' +
+            '<label>Summary</label>' +
+            '<input type="text" class="updateSummary" name="summary" value="' + response[0]['summary'] + '"><br>' +
+            '<label>Content</label>' +
+            '<textarea name="content_txt" id="updateContentText" cols="15" rows="5">'+ response[0]['content'] +'</textarea><br>' +
+            '<label>Date</label>' +
+            '<input class="updateDate" type="date" value="' + response[0]['publicationDate'] + '">' +
+            '<button id="FormUpdateDraftPublish">Save and publish article</button>' +
+            '<button id="FormUpdateDraft">Update draft</button>';
+          clickedArticleShow += "</form>";
+
+          $('#maincontent').append(clickedArticleShow);
+
+          updateArticleDraft(response);
+          publishArticleDraft(response);
+        },
+        error:function (xhr, ajaxOptions, thrownError){
+          //$("#FormSubmit").show(); //show submit button
+          alert(thrownError);
+        }
+      });
+    });
+
+    // Event when clicking deletebutton on article row or delete draft-button in draft list ========================================/
     $(document).on('click', '#deleteB, #deleteDraftB', function(){
       // Find id of clicked row
       var idx = $(this).closest("tr").find(".article-id").text();
@@ -446,13 +486,8 @@ $(function(){
     // Event when clicking DRAFT LIST in navigation ======================================================/
     $("#drafts").click(function(){
       $(".admin-articles, .form_style").remove();
+      $("#maincontent>form:first").remove();
       $("#maincontent>h3:first").html("Drafts");
-      readDraftData();
-    });
-
-    // Event when clicking Edit draft button ======================================================/
-    $("#editDraftB").click(function(){
-
       readDraftData();
     });
 
@@ -484,6 +519,65 @@ $(function(){
         },
         error:function (xhr, ajaxOptions, thrownError){
           //$("#LoadingImage").hide(); //hide loading image
+          alert(thrownError);
+        }
+      });
+    });
+  }
+
+  // UPDATE DRAFT ===============================================================================================/
+  function updateArticleDraft(data){
+    $("#FormUpdateDraft").click(function (e) {
+      e.preventDefault();
+      //console.log(data);
+
+      var title = $(".updateTitle").val(); //build a post data structure
+      var summary = $(".updateSummary").val(); //build a post data structure
+      var content = $("#updateContentText").val(); //build a post data structure
+      var date = $(".updateDate").val(); //build a post data structure
+      var idx = data[0]['id'];
+
+      jQuery.ajax({
+        type: "POST", // HTTP method POST or GET
+        url: "php/queries.php", //Where to make Ajax calls
+        dataType:"text", // Data type, HTML, json etc.
+        data: { 'title': title, 'summary': summary, 'content': content, 'date': date, 'idx': idx, 'type': 'update' }, //Form variables
+        success:function(data){
+
+          console.log('draft update success');
+          console.log(data);
+
+        },
+        error:function (xhr, ajaxOptions, thrownError){
+          //$("#LoadingImage").hide(); //hide loading image
+          alert(thrownError);
+        }
+      });
+    });
+  }
+
+  // SAVE AND PUBLISH DRAFT ===============================================================================================/
+  function publishArticleDraft(data){
+    $("#FormUpdateDraftPublish").click(function (e) {
+      e.preventDefault();
+      console.log("function running?");
+
+      var title = $(".updateTitle").val(); //build a post data structure
+      var summary = $(".updateSummary").val(); //build a post data structure
+      var content = $("#updateContentText").val(); //build a post data structure
+      var date = $(".updateDate").val(); //build a post data structure
+      var idx = data[0]['id'];
+
+      jQuery.ajax({
+        type: "POST", // HTTP method POST or GET
+        url: "php/queries.php", //Where to make Ajax calls
+        dataType:"text", // Data type, HTML, json etc.
+        data: { 'title': title, 'summary': summary, 'content': content, 'date': date, 'idx': idx, 'type': 'draftSavePublish' },
+        success:function(data){
+          console.log('draft updated and published');
+          console.log(data);
+        },
+        error:function (xhr, ajaxOptions, thrownError){
           alert(thrownError);
         }
       });
