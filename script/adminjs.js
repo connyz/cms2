@@ -369,6 +369,7 @@ $(function(){
           //$("#responds").append(response);
           console.log(response);
           $(".title, .summary, #contentText").val(''); //empty text field on successful
+          $("#FormSubmit").show(); //show submit button
           $("#FormSubmitDraft").show(); //show submit button
         },
        error:function (xhr, ajaxOptions, thrownError){
