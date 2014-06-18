@@ -24,7 +24,7 @@ $(function(){
     $('.logout').append(adminLogout);
 
     var adminContent =
-    '<h3>Articles</h3>' +
+    '</div><h3>Articles</h3>' +
       '<div class="admin-articles"></div>' +
 
       '<div class="form_style">' +
@@ -194,10 +194,11 @@ $(function(){
   function tableOfDataAdmin(data){
     //console.log("from the function tableOfDataAdmin ",data);
 
-    var tableOfTheArticles = "<table>";
+    var tableOfTheArticles ='<table class="col-xs-12">';
     tableOfTheArticles += "<thead><tr>" +
     "<th>Publication Date</th>" +
     "<th>Article</th>" +
+    "<th>Options</th>" +
     "</tr></thead>";
     // loop through result array
     for(var i = 0; i < data.length; i++){
@@ -252,6 +253,7 @@ $(function(){
     tableOfTheArticles += "<thead><tr>" +
     "<th>Publication Date</th>" +
     "<th>Article</th>" +
+    "<th>Options</th>" +
     "</tr></thead>";
     // loop through result array
     for(var i = 0; i < data.length; i++){
