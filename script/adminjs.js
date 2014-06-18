@@ -90,7 +90,7 @@ $(function(){
     '</div>'
   );
 
- // When the user clicks login
+  // When the user clicks login
   $('.login').click(function(){
     form.find('.submit').val("Logga in");
     form.submit(loginAttempt);
@@ -447,7 +447,7 @@ $(function(){
 
           var clickedArticleShow = "<form>";
             clickedArticleShow += '<label>Title</label>' +
-            '<input type="text" class="updateTitle" name="title" value=" ' + response[0]['title']  + '"><br>' +
+            '<input type="text" class="updateTitle" name="title" value="' + response[0]['title']  + '"><br>' +
             '<label>Summary</label>' +
             '<input type="text" class="updateSummary" name="summary" value="' + response[0]['summary'] + '"><br>' +
             '<label>Content</label>' +
