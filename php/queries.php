@@ -60,6 +60,20 @@ if ($type === "draftSavePublish"){
   	$myDbConnect->insupdel( $sql );
 }
 
+// Kolla om $type är lika med "saveAndUnpublish"
+if ($type === "saveAndUnpublish"){
+
+	$title = $_POST['title'];
+	$summary = $_POST['summary'];
+	$content = $_POST['content'];
+	$date = $_POST['date'];
+	$idx = $_POST['idx'];
+
+	$sql = "UPDATE articles SET title = '$title', summary = '$summary', content = '$content', publicationDate = '$date', Status='DRAFT' WHERE id='$idx'";
+
+  	$myDbConnect->insupdel( $sql );
+}
+
 // Kolla om $type är lika med "thisArticle"
 if ( $type === "thisArticle" ){
 	$idx = $_POST['idx'];
@@ -77,7 +91,7 @@ if ( $type === "showAll" ){
 	// fråga = visa all information i person
 	$show = json_encode(
 	  $myDbConnect->select(
-	    'SELECT * FROM articles WHERE status="PUBLISHED"'
+	    'SELECT * FROM articles WHERE status="PUBLISHED" ORDER BY publicationDate DESC'
 	  )
 	);
 	echo($show);
@@ -88,7 +102,7 @@ if ( $type === "showAllDrafts" ){
 	// fråga = visa all information i person
 	$show = json_encode(
 	  $myDbConnect->select(
-	    'SELECT * FROM articles WHERE status="DRAFT"'
+	    'SELECT * FROM articles WHERE status="DRAFT" ORDER BY publicationDate DESC'
 	  )
 	);
 	echo($show);

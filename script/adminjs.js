@@ -406,19 +406,20 @@ $(function(){
 
           var clickedArticleShow = "<form>";
             clickedArticleShow += '<label>Title</label>' +
-            '<input type="text" class="updateTitle" name="title" value=" ' + response[0]['title']  + '"><br>' +
+            '<input type="text" class="updateTitle" name="title" value="' + response[0]['title']  + '"><br>' +
             '<label>Summary</label>' +
             '<input type="text" class="updateSummary" name="summary" value="' + response[0]['summary'] + '"><br>' +
             '<label>Content</label>' +
             '<textarea name="content_txt" id="updateContentText" cols="15" rows="5">'+ response[0]['content'] +'</textarea><br>' +
             '<label>Date</label>' +
             '<input class="updateDate" type="date" value="' + response[0]['publicationDate'] + '">' +
-            '<button id="FormUpdate">Update record</button>';
+            '<button id="FormUpdate">Update article</button>' + '<button id="updateUnpublish">Save as draft</button>';
           clickedArticleShow += "</form>";
 
           $('#maincontent').append(clickedArticleShow);
 
           updateArticle(response);
+          saveArticleToDraft(response);
         },
         error:function (xhr, ajaxOptions, thrownError){
           $("#FormSubmit").show(); //show submit button
@@ -525,6 +526,35 @@ $(function(){
         },
         error:function (xhr, ajaxOptions, thrownError){
           //$("#LoadingImage").hide(); //hide loading image
+          alert(thrownError);
+        }
+      });
+    });
+  }
+
+  // UNPUBLISH AND SAVE ARTICLE AS DRAFT ===============================================================================================/
+  function saveArticleToDraft(data){
+    $("#updateUnpublish").click(function (e) {
+      e.preventDefault();
+      //console.log("function running?");
+
+      var title = $(".updateTitle").val(); //build a post data structure
+      var summary = $(".updateSummary").val(); //build a post data structure
+      var content = $("#updateContentText").val(); //build a post data structure
+      var date = $(".updateDate").val(); //build a post data structure
+      var idx = data[0]['id'];
+
+      jQuery.ajax({
+        type: "POST", // HTTP method POST or GET
+        url: "php/queries.php", //Where to make Ajax calls
+        dataType:"text", // Data type, HTML, json etc.
+        data: { 'title': title, 'summary': summary, 'content': content, 'date': date, 'idx': idx, 'type': 'saveAndUnpublish' },
+        success:function(data){
+          console.log('Unpublished and saved as draft');
+          console.log(data);
+          window.location.href="http://localhost/git/cms2/index.html";
+        },
+        error:function (xhr, ajaxOptions, thrownError){
           alert(thrownError);
         }
       });
