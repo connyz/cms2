@@ -26,6 +26,7 @@ $(function(){
     var adminContent =
     '<h3>Articles</h3>' +
       '<div class="admin-articles"></div>' +
+
       '<div class="form_style">' +
         '<form>' +
           '<label>Title</label>' +
@@ -43,6 +44,7 @@ $(function(){
 
     // Add content to page
     $('#maincontent').append(adminContent);
+    $('.form_style').hide();
   }
   else {
     $( '.centerized' ).hide();
@@ -273,7 +275,10 @@ $(function(){
 
   // ADD NEW ARTICLE =================================================================================================/
   $('.new-article-btn-menu').click( function(){
-    var addFormForNewArticle =
+    $('.admin-articles').hide();
+    $('.form_style').show();
+
+    /*var addFormForNewArticle =
       '<div class="form_style">' +
         '<form>' +
           '<label>Title</label>' +
@@ -289,7 +294,7 @@ $(function(){
         '</form>' +
       '</div>';
 
-      $('.admin-articles').html(addFormForNewArticle);
+      $('#maincontent').html(addFormForNewArticle);*/
   });
 
   // CREATE AN ARTICLE ===============================================================================================/
