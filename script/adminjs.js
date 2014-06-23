@@ -27,14 +27,14 @@ $(function(){
     '</div><h3>Articles</h3>' +
       '<div class="admin-articles"></div>' +
 
-      '<div class="form_style">' +
+      '<div class="form_style col-xs-12">' +
         '<form>' +
           '<label>Title</label>' +
-          '<input type="text" class="title" name="title"><br>' +
+          '<input type="text" class="title col-xs-12" name="title"><br>' +
           '<label>Summary</label>' +
-          '<input type="text" class="summary" name="summary"><br>' +
+          '<input type="text" class="summary col-xs-12" name="summary"><br>' +
           '<label>Content</label>' +
-          '<textarea name="content_txt" id="contentText" cols="15" rows="5"></textarea><br>' +
+          '<textarea name="content_txt" id="contentText" class="col-xs-12" cols="15" rows="5"></textarea><br>' +
           '<label>Date</label>' +
           '<input class="date" type="date">' +
           '<button id="FormSubmit">Create article</button>' +
