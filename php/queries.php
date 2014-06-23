@@ -121,6 +121,10 @@ if ( $type === "deleteArticle" ){
 }
 
 
+/*SELECT categories.name FROM categories LEFT JOIN articles on articles.categoryId = categories.id WHERE articles.categoryId = 1*/
+
+
+
 /*
 $values = array();
 $values['first'] => 1;
