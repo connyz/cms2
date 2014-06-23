@@ -262,6 +262,7 @@ $(function(){
 
   // ADD NEW ARTICLE =================================================================================================/
   $('.new-article-btn-menu').click( function(){
+    $("#maincontent>form:first").remove();
     $("#maincontent>h3:first").html("New article");
     $('.admin-articles').remove();
     $('.form_style').remove();
