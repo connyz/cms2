@@ -25,26 +25,11 @@ $(function(){
 
     var adminContent =
     '</div><h3>Articles</h3>' +
-      '<div class="admin-articles"></div>' +
-
-      '<div class="form_style col-xs-12">' +
-        '<form>' +
-          '<label>Title</label>' +
-          '<input type="text" class="title col-xs-12" name="title"><br>' +
-          '<label>Summary</label>' +
-          '<input type="text" class="summary col-xs-12" name="summary"><br>' +
-          '<label>Content</label>' +
-          '<textarea name="content_txt" id="contentText" class="col-xs-12" cols="15" rows="5"></textarea><br>' +
-          '<label>Date</label>' +
-          '<input class="date" type="date">' +
-          '<button id="FormSubmit">Create article</button>' +
-          '<button id="FormSubmitDraft">Save as draft</button>' +
-        '</form>' +
-      '</div>';
+      '<div class="admin-articles"></div>';
 
     // Add content to page
     $('#maincontent').append(adminContent);
-    $('.form_style').hide();
+    //$('.form_style').hide();
   }
   else {
     $( '.centerized' ).hide();
@@ -277,18 +262,18 @@ $(function(){
 
   // ADD NEW ARTICLE =================================================================================================/
   $('.new-article-btn-menu').click( function(){
-    $('.admin-articles').hide();
-    $('.form_style').show();
+    $("#maincontent>h3:first").html("New article");
+    $('.admin-articles').remove();
+    $('.form_style').remove();
 
-    /*var addFormForNewArticle =
-      '<div class="form_style">' +
+    var newArticleForm  = '<div class="form_style col-xs-12">' +
         '<form>' +
           '<label>Title</label>' +
-          '<input type="text" class="title" name="title"><br>' +
+          '<input type="text" class="title col-xs-12" name="title"><br>' +
           '<label>Summary</label>' +
-          '<input type="text" class="summary" name="summary"><br>' +
+          '<input type="text" class="summary col-xs-12" name="summary"><br>' +
           '<label>Content</label>' +
-          '<textarea name="content_txt" id="contentText" cols="15" rows="5"></textarea><br>' +
+          '<textarea name="content_txt" id="contentText" class="col-xs-12" cols="15" rows="5"></textarea><br>' +
           '<label>Date</label>' +
           '<input class="date" type="date">' +
           '<button id="FormSubmit">Create article</button>' +
@@ -296,12 +281,12 @@ $(function(){
         '</form>' +
       '</div>';
 
-      $('#maincontent').html(addFormForNewArticle);*/
+    $('#maincontent').append(newArticleForm);
   });
 
   // CREATE AN ARTICLE ===============================================================================================/
   //##### send add record Ajax request to create.php #########
-  $("#FormSubmit").click(function (e) {
+  $(document).on('click', "#FormSubmit", function (e) {
     e.preventDefault();
     if($(".title").val()==='')
     {
@@ -343,12 +328,12 @@ $(function(){
   });
 
   // SAVE ARTICLE AS DRAFT ===============================================================================================/
-  $("#FormSubmitDraft").click(function (e) {
+  $(document).on('click', "#FormSubmitDraft", function (e) {
     e.preventDefault();
     if($(".title").val()==='')
     {
-        alert("Please enter some title for draft!");
-        return false;
+      alert("Please enter some title for draft!");
+      return false;
     }
 
     // Hide submitbuttons on form
