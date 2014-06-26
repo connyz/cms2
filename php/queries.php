@@ -13,9 +13,10 @@ if ($type === "insert"){
 	$title = $_POST['title'];
 	$summary = $_POST['summary'];
 	$content = $_POST['content'];
+	$tags = $_POST['tags'];
 	$date = $_POST['date'];
 
-	$sql = "INSERT INTO articles (publicationDate, title, summary, content, status) VALUES ('" . $date . "','" . $title . "','" . $summary . "','" . $content . "','" . "PUBLISHED" . "')";
+	$sql = "INSERT INTO articles (publicationDate, title, summary, content, categoryId, status) VALUES ('" . $date . "','" . $title . "','" . $summary . "','" . $content . "','" . $tags . "','" . "PUBLISHED" . "')";
 	  $myDbConnect->insupdel( $sql );
 	  //echo "insert";
 }
@@ -120,6 +121,16 @@ if ( $type === "deleteArticle" ){
 	$myDbConnect->insupdel( $sql );
 }
 
+// Kolla om $type är lika med "showAll"
+if ( $type === "getTag" ){
+	// fråga = visa all information i person
+	$show = json_encode(
+	  $myDbConnect->select(
+	    'SELECT name FROM categories'
+	  )
+	);
+	echo($show);
+}
 
 /*SELECT categories.name FROM categories LEFT JOIN articles on articles.categoryId = categories.id WHERE articles.categoryId = 1*/
 

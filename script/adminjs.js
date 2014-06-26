@@ -267,22 +267,60 @@ $(function(){
     $('.admin-articles').remove();
     $('.form_style').remove();
 
-    var newArticleForm  = '<div class="form_style col-xs-12">' +
-        '<form>' +
-          '<label>Title</label>' +
-          '<input type="text" class="title col-xs-12" name="title"><br>' +
-          '<label>Summary</label>' +
-          '<input type="text" class="summary col-xs-12" name="summary"><br>' +
-          '<label>Content</label>' +
-          '<textarea name="content_txt" id="contentText" class="col-xs-12" cols="15" rows="5"></textarea><br>' +
-          '<label>Date</label>' +
-          '<input class="date" type="date">' +
-          '<button id="FormSubmit">Create article</button>' +
-          '<button id="FormSubmitDraft">Save as draft</button>' +
-        '</form>' +
-      '</div>';
+    $.ajax({
+      type: "POST",
+      url: 'php/queries.php',//the script to call to get data
+      dataType: 'json',//data format
+      data: { 'type': 'getTag' },
+      success: function(data)//on recieve of reply
+      {
+        console.log(data);
+        newArticle(data);
+      },
+      error:function (xhr, ajaxOptions, thrownError){
+        alert(thrownError);
+      }
+    });
 
-    $('#maincontent').append(newArticleForm);
+    function newArticle(tag){
+
+      /*for(var i = 0; i < tag.length; i++){
+        console.log(tag[i].name);
+      }*/
+
+      var newArticleForm  = '<div class="form_style col-xs-12">' +
+          '<form>' +
+            '<label>Title</label>' +
+            '<input type="text" class="title col-xs-12" name="title"><br>' +
+            '<label>Summary</label>' +
+            '<input type="text" class="summary col-xs-12" name="summary"><br>' +
+            '<label>Content</label>' +
+            '<textarea name="content_txt" id="contentText" class="col-xs-12" cols="15" rows="5"></textarea><br>' +
+            '<label>Tagg</label>' +
+            '<select class="tags" name="taglist" form="taglist">';
+
+            for(var i = 0; i < tag.length; i++){
+              console.log(tag[i].name);
+              newArticleForm += '<option value="'+ (i+1) +'">'+tag[i].name+'</option>' ;
+            }
+
+            newArticleForm += '</select>' +
+            '<label>Date</label>' +
+            '<input class="date" type="date">' +
+            '<button id="FormSubmit">Create article</button>' +
+            '<button id="FormSubmitDraft">Save as draft</button>' +
+          '</form>' +
+        '</div>';
+
+
+
+      $('#maincontent').append(newArticleForm);
+
+              //var X = $( ".tags" ).val();
+              //console.log(X);
+
+    }
+
   });
 
   // CREATE AN ARTICLE ===============================================================================================/
@@ -302,6 +340,7 @@ $(function(){
     var title = $(".title").val(); //build a post data structure
     var summary = $(".summary").val(); //build a post data structure
     var content = $("#contentText").val(); //build a post data structure
+    var tags = $( ".tags" ).val();
     var date = $(".date").val(); //build a post data structure
 
     //console.log(content, title, summary, date);
@@ -310,7 +349,7 @@ $(function(){
       type: "POST", // HTTP method POST or GET
       url: "php/queries.php", //Where to make Ajax calls
       dataType:"text", // Data type, HTML, json etc.
-      data: { 'title': title, 'summary': summary, 'content': content, 'date': date, 'type': 'insert' }, //Form variables
+      data: { 'title': title, 'summary': summary, 'content': content, 'date': date, 'tags': tags, 'type': 'insert' }, //Form variables
       success:function(response){
           //$("#responds").append(response);
           console.log(response);
