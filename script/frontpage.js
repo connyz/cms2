@@ -79,9 +79,9 @@ $(function(){
 					"<h4 class='col-xs-12'>" +	response[0]['publicationDate'] + "</h4>" +
 					"<h4 class='col-xs-12'>" + response[0]['summary'] + "</h4>" +
 					"<p class='col-xs-12'>" + response[0]['content'] + "</p>" +
-					"</div>";
+					"<hr class='col-xs-12'></div>";
 
-					clickedArticleShow += "</row><hr>";
+					clickedArticleShow += "</div>";
 
 					$('#maincontent').append(clickedArticleShow);
 
