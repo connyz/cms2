@@ -408,7 +408,7 @@ $(function(){
     });
   });
 
-  // SHOW THE CLICKED ARTICLE ===============================================================================================/
+  // SHOW THE CLICKED ARTICLE =============================conny==================================================================/
   function clickEvents() {
     // Event when pushing editbutton on article row
     $(".admin-articles").on('click', '#editB', function(){
@@ -429,16 +429,30 @@ $(function(){
           console.log( "title: ", response[0]['title'] );
           console.log( "summary: ", response[0]['summary'] );
           console.log( "content: ", response[0]['content'] );
+          console.log( "categoryId: ", response[0]['categoryId'] );
           console.log( "date: ", response[0]['publicationDate'] );
           console.log( "id: ", response[0]['id'] );
 
           var clickedArticleShow = "<form>";
             clickedArticleShow += '<label>Title</label>' +
-            '<input type="text" class="updateTitle" name="title" value="' + response[0]['title']  + '"><br>' +
+            '<input type="text" class="updateTitle col-xs-12" name="title" value="' + response[0]['title']  + '"><br>' +
             '<label>Summary</label>' +
-            '<input type="text" class="updateSummary" name="summary" value="' + response[0]['summary'] + '"><br>' +
+            '<input type="text" class="updateSummary col-xs-12" name="summary" value="' + response[0]['summary'] + '"><br>' +
             '<label>Content</label>' +
-            '<textarea name="content_txt" id="updateContentText" cols="15" rows="5">'+ response[0]['content'] +'</textarea><br>' +
+            '<textarea name="content_txt" class="col-xs-12" id="updateContentText" cols="15" rows="5">'+ response[0]['content'] +'</textarea><br>' +
+            '<label>Tagg</label>' +
+            '<select class="tags" name="taglist" form="taglist">';
+
+
+
+                  //newArticleForm += '<option value="'+ (i+1) +'">'+tag[i].name+'</option>' ;
+                  clickedArticleShow += '<option value="'+response[0]['categoryId']+'">'+response[0]['categoryId']+'</option>';
+
+
+
+
+
+            clickedArticleShow += '</select>' +
             '<label>Date</label>' +
             '<input class="updateDate" type="date" value="' + response[0]['publicationDate'] + '">' +
             '<button id="FormUpdate">Update article</button>' + '<button id="updateUnpublish">Save as draft</button>';
