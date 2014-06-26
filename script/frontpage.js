@@ -2,7 +2,7 @@
 $(function(){
 
 	readData();
-	//clickEvents();
+	clickEvents();
 
 	var frontContent = '<h2 class="text-center">This is the Amazing Blog</h2><div class="front-articles"></div>';
 
@@ -40,15 +40,66 @@ $(function(){
 				"<p class='col-xs-12'>" + data[i].summary + "</p>" +
 				'<p class="article-id">' + data[i].id + "</p>" +
 				"</div><hr>";
-    }
+		}
 
-	article += "</articles";
-	// add the html to the dom
-	// console.log(html);
-	$('.front-articles').html(article);
-  }
+		article += "</articles";
+		// add the html to the dom
+		// console.log(html);
+		$('.front-articles').html(article);
+	}
+
+	// SHOW THE CLICKED ARTICLE ===============================================================================================/
+	function clickEvents() {
+		// Event when pushing editbutton on article row
+		$(document).on('click', 'h3', function(){
+		//console.log( $(this).text());
+
+			var idx = $(this).closest(".row").find(".article-id").text();
+			console.log(idx);
+
+			jQuery.ajax({
+				type: "POST", // HTTP method POST or GET
+				url: "php/queries.php", //Where to make Ajax calls
+				dataType:"json", // Data type, HTML, json etc.
+				data: { 'idx': idx, 'type': 'thisArticle' }, //Form variables
+				success:function(response){
+					//$("#responds").append(response);
+					$("articles").remove();
+					console.log(response);
+					console.log( "title: ", response[0]['title'] );
+					console.log( "summary: ", response[0]['summary'] );
+					console.log( "content: ", response[0]['content'] );
+					console.log( "date: ", response[0]['publicationDate'] );
+					console.log( "id: ", response[0]['id'] );
+
+					var clickedArticleShow = "<form>";
+					clickedArticleShow += '<label>Title</label>' +
+						'<input type="text" class="updateTitle" name="title" value="' + response[0]['title']  + '"><br>' +
+						'<label>Summary</label>' +
+						'<input type="text" class="updateSummary" name="summary" value="' + response[0]['summary'] + '"><br>' +
+						'<label>Content</label>' +
+						'<textarea name="content_txt" id="updateContentText" cols="15" rows="5">'+ response[0]['content'] +'</textarea><br>' +
+						'<label>Date</label>' +
+						'<input class="updateDate" type="date" value="' + response[0]['publicationDate'] + '">' +
+						'<button id="FormUpdate">Update article</button>' + '<button id="updateUnpublish">Save as draft</button>';
+					clickedArticleShow += "</form>";
+
+					$('#maincontent').append(clickedArticleShow);
+
+					//updateArticle(response);
+					//saveArticleToDraft(response);
+				},
+				error:function (xhr, ajaxOptions, thrownError){
+					$("#FormSubmit").show(); //show submit button
+					//$("#LoadingImage").hide(); //hide loading image
+					alert(thrownError);
+				}
+			});
+		});
+	}
 
 }); // End of "Wait for DOM"
+
 /*
 <article>
     <h2><a href="singlepost.html">Aries Sun Sign March 21 - April 19</a></h2>
