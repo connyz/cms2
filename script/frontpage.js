@@ -52,7 +52,6 @@ $(function(){
 	function clickEvents() {
 		// Event when pushing editbutton on article row
 		$(document).on('click', 'h3', function(){
-		//console.log( $(this).text());
 
 			var idx = $(this).closest(".row").find(".article-id").text();
 			console.log(idx);
@@ -65,6 +64,7 @@ $(function(){
 				success:function(response){
 					//$("#responds").append(response);
 					$("articles").remove();
+					$("#maincontent>h2:first").remove();
 					console.log(response);
 					console.log( "title: ", response[0]['title'] );
 					console.log( "summary: ", response[0]['summary'] );
@@ -72,17 +72,16 @@ $(function(){
 					console.log( "date: ", response[0]['publicationDate'] );
 					console.log( "id: ", response[0]['id'] );
 
-					var clickedArticleShow = "<form>";
-					clickedArticleShow += '<label>Title</label>' +
-						'<input type="text" class="updateTitle" name="title" value="' + response[0]['title']  + '"><br>' +
-						'<label>Summary</label>' +
-						'<input type="text" class="updateSummary" name="summary" value="' + response[0]['summary'] + '"><br>' +
-						'<label>Content</label>' +
-						'<textarea name="content_txt" id="updateContentText" cols="15" rows="5">'+ response[0]['content'] +'</textarea><br>' +
-						'<label>Date</label>' +
-						'<input class="updateDate" type="date" value="' + response[0]['publicationDate'] + '">' +
-						'<button id="FormUpdate">Update article</button>' + '<button id="updateUnpublish">Save as draft</button>';
-					clickedArticleShow += "</form>";
+					var clickedArticleShow = "<div class='row col-xs-12'>";
+
+					clickedArticleShow += "<div class='col-sm-6 col-md-6'><h1 class='blog-post-title' style='color:#428bca'>" +
+					response[0]['title'] + "</h1></div>" +
+					"<h4 class='col-xs-12'>" +	response[0]['publicationDate'] + "</h4>" +
+					"<h4 class='col-xs-12'>" + response[0]['summary'] + "</h4>" +
+					"<p class='col-xs-12'>" + response[0]['content'] + "</p>" +
+					"</div>";
+
+					clickedArticleShow += "</row><hr>";
 
 					$('#maincontent').append(clickedArticleShow);
 
