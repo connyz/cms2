@@ -121,7 +121,7 @@ if ( $type === "deleteArticle" ){
 	$myDbConnect->insupdel( $sql );
 }
 
-// Kolla om $type är lika med "showAll"
+
 if ( $type === "getTag" ){
 	// fråga = visa all information i person
 	$show = json_encode(
@@ -132,7 +132,19 @@ if ( $type === "getTag" ){
 	echo($show);
 }
 
+if ( $type === "getTagByArticleId" ){
+
+	$idx = $_POST['idx'];
+
+	$show = json_encode(
+	  $myDbConnect->select(
+	    "SELECT DISTINCT categories.name FROM categories LEFT JOIN articles on articles.categoryId = categories.id WHERE articles.id = $idx"
+	  )
+	);
+	echo($show);
+}
 /*SELECT categories.name FROM categories LEFT JOIN articles on articles.categoryId = categories.id WHERE articles.categoryId = 1*/
+/*SELECT DISTINCT categories.name FROM categories LEFT JOIN articles on articles.categoryId = categories.id WHERE articles.id = 3*/
 
 
 

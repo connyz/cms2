@@ -441,19 +441,27 @@ $(function(){
             '<label>Content</label>' +
             '<textarea name="content_txt" class="col-xs-12" id="updateContentText" cols="15" rows="5">'+ response[0]['content'] +'</textarea><br>' +
             '<label>Tagg</label>' +
-            '<select class="tags" name="taglist" form="taglist">';
+            '<p class="tagOnThisArticle"></p>';
+
+            $.ajax({
+              type: "POST",
+              url: 'php/queries.php',//the script to call to get data
+              dataType: 'json',//data format
+              data: { 'type': 'getTagByArticleId', 'idx': response[0]['id'] },
+              success: function(data)//on recieve of reply
+              {
+                console.log( data[0].name );
+                $('.tagOnThisArticle').append(data[0].name);
+              },
+              error:function (xhr, ajaxOptions, thrownError){
+                alert(thrownError);
+              }
+            });
 
 
 
-                  //newArticleForm += '<option value="'+ (i+1) +'">'+tag[i].name+'</option>' ;
-                  clickedArticleShow += '<option value="'+response[0]['categoryId']+'">'+response[0]['categoryId']+'</option>';
 
-
-
-
-
-            clickedArticleShow += '</select>' +
-            '<label>Date</label>' +
+            clickedArticleShow += '<label>Date</label>' +
             '<input class="updateDate" type="date" value="' + response[0]['publicationDate'] + '">' +
             '<button id="FormUpdate">Update article</button>' + '<button id="updateUnpublish">Save as draft</button>';
           clickedArticleShow += "</form>";
