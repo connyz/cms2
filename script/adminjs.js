@@ -341,9 +341,12 @@ $(function(){
     $("#FormSubmitDraft").hide(); // hide savedraft-button
     //$("#LoadingImage").show(); // show loading image
 
-    var title = $(".title").val(); //build a post data structure
-    var summary = $(".summary").val(); //build a post data structure
-    var content = $("#contentText").val(); //build a post data structure
+    var title = $(".title").val();
+    var summary = $(".summary").val();
+    var objEditor = CKEDITOR.instances["contentText"]; // Create an instance of current ckeditor
+    var content = objEditor.getData(); //Get data from the textfield in ckeditor
+    objEditor.setData(''); // Clear the current ckeditor
+    console.log(content);
     var tags = $( ".tags" ).val();
     var date = $(".date").val(); //build a post data structure
 
@@ -386,7 +389,9 @@ $(function(){
 
     var title = $(".title").val(); //build a post data structure
     var summary = $(".summary").val(); //build a post data structure
-    var content = $("#contentText").val(); //build a post data structure
+    var objEditor = CKEDITOR.instances["contentText"]; // Create an instance of current ckeditor
+    var content = objEditor.getData(); //Get data from the textfield in ckeditor
+    objEditor.setData(''); // Clear the current ckeditor
     var date = $(".date").val(); //build a post data structure
 
     console.log(content, title, summary, date);
@@ -571,7 +576,8 @@ $(function(){
 
       var title = $(".updateTitle").val(); //build a post data structure
       var summary = $(".updateSummary").val(); //build a post data structure
-      var content = $("#updateContentText").val(); //build a post data structure
+      var objEditor = CKEDITOR.instances["updateContentText"]; // Create an instance of current ckeditor
+      var content = objEditor.getData(); //Get data from the textfield in ckeditor
       var date = $(".updateDate").val(); //build a post data structure
       var idx = data[0]['id'];
 
@@ -602,7 +608,9 @@ $(function(){
 
       var title = $(".updateTitle").val(); //build a post data structure
       var summary = $(".updateSummary").val(); //build a post data structure
-      var content = $("#updateContentText").val(); //build a post data structure
+      var objEditor = CKEDITOR.instances["updateContentText"]; // Create an instance of current ckeditor
+      var content = objEditor.getData(); //Get data from the textfield in ckeditor
+      objEditor.setData(''); // Clear the current ckeditor
       var date = $(".updateDate").val(); //build a post data structure
       var idx = data[0]['id'];
 
@@ -631,7 +639,9 @@ $(function(){
 
       var title = $(".updateTitle").val(); //build a post data structure
       var summary = $(".updateSummary").val(); //build a post data structure
-      var content = $("#updateContentText").val(); //build a post data structure
+      var objEditor = CKEDITOR.instances["updateContentText"]; // Create an instance of current ckeditor
+      var content = objEditor.getData(); //Get data from the textfield in ckeditor
+      objEditor.setData(''); // Clear the current ckeditor
       var date = $(".updateDate").val(); //build a post data structure
       var idx = data[0]['id'];
 
@@ -662,7 +672,9 @@ $(function(){
 
       var title = $(".updateTitle").val(); //build a post data structure
       var summary = $(".updateSummary").val(); //build a post data structure
-      var content = $("#updateContentText").val(); //build a post data structure
+      var objEditor = CKEDITOR.instances["updateContentText"]; // Create an instance of current ckeditor
+      var content = objEditor.getData(); //Get data from the textfield in ckeditor
+      objEditor.setData(''); // Clear the current ckeditor
       var date = $(".updateDate").val(); //build a post data structure
       var idx = data[0]['id'];
 
