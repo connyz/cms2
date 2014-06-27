@@ -76,7 +76,7 @@ $(function(){
 
 					clickedArticleShow += "<div class='col-sm-6 col-md-6'><h1 class='blog-post-title' style='color:#428bca'>" +
 					response[0]['title'] + "</h1></div>" +
-					"<h4 class='col-xs-12'>" +	response[0]['publicationDate'] + "</h4>" +
+					"<h4 class='col-sm-6 col-md-6 text-right'>" +	response[0]['publicationDate'] + "</h4>" +
 					"<h4 class='col-xs-12'>" + response[0]['summary'] + "</h4>" +
 					"<p class='col-xs-12'>" + response[0]['content'] + "</p>" +
 					"<hr class='col-xs-12'></div>";
