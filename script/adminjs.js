@@ -66,7 +66,7 @@ $(function(){
     '<label for="username">Användarnamn:</label>' +
     '<input class="col-xs-12" type="text" id="username" name="username" placeholder="Användarnamn">' +
     '<label for="password">password:</label>' +
-    '<input class="col-xs-12" type="text" id="password" name="password" placeholder="Lösenord">' +
+    '<input class="col-xs-12" type="password" id="password" name="password" placeholder="Lösenord">' +
     '<input class="submit" type="submit" value="Skicka">' +
     '</form>' +
 
@@ -295,7 +295,11 @@ $(function(){
             '<label>Summary</label>' +
             '<input type="text" class="summary col-xs-12" name="summary"><br>' +
             '<label>Content</label>' +
-            '<textarea name="content_txt" id="contentText" class="col-xs-12" cols="15" rows="5"></textarea><br>' +
+            '<textarea name="content_txt" id="contentText" class="col-xs-12" cols="15" rows="5"></textarea>' +
+            "<script type='text/javascript'>" +
+              "CKEDITOR.replace( 'contentText' );" +
+            "</script>" +
+            '<br>' +
             '<label>Tagg</label>' +
             '<select class="tags" name="taglist" form="taglist">';
 
@@ -439,7 +443,11 @@ $(function(){
             '<label>Summary</label>' +
             '<input type="text" class="updateSummary col-xs-12" name="summary" value="' + response[0]['summary'] + '"><br>' +
             '<label>Content</label>' +
-            '<textarea name="content_txt" class="col-xs-12" id="updateContentText" cols="15" rows="5">'+ response[0]['content'] +'</textarea><br>' +
+            '<textarea name="content_txt" class="col-xs-12" id="updateContentText" cols="15" rows="5">'+ response[0]['content'] +'</textarea>' +
+            "<script type='text/javascript'>" +
+              "CKEDITOR.replace( 'updateContentText' );" +
+            "</script>" +
+            '<br>' +
             '<label>Tagg</label>' +
             '<p class="tagOnThisArticle"></p>';
 
@@ -500,7 +508,11 @@ $(function(){
             '<label>Summary</label>' +
             '<input type="text" class="updateSummary" name="summary" value="' + response[0]['summary'] + '"><br>' +
             '<label>Content</label>' +
-            '<textarea name="content_txt" id="updateContentText" cols="15" rows="5">'+ response[0]['content'] +'</textarea><br>' +
+            '<textarea name="content_txt" id="updateContentText" cols="15" rows="5">'+ response[0]['content'] +'</textarea>' +
+            "<script type='text/javascript'>" +
+              "CKEDITOR.replace( 'updateContentText' );" +
+            "</script>" +
+            '<br>' +
             '<label>Date</label>' +
             '<input class="updateDate" type="date" value="' + response[0]['publicationDate'] + '">' +
             '<button id="FormUpdateDraftPublish">Save and publish article</button>' +
