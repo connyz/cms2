@@ -97,6 +97,24 @@ $(function(){
 		});
 	}
 
+
+
+	$('.searchByCategory').click( function(){
+		console.log('yes');
+		var searchTagForm  = '<div class="col-xs-12">' +
+          '<form>' +
+            '<label>Tagg</label>' +
+            '<select class="tags" name="taglist" form="taglist">' +
+			'<option value="a">a</option>' +
+			'</select>' +
+          '</form>' +
+        '</div>';
+
+        $('#maincontent').prepend(searchTagForm);
+
+
+	});
+
 }); // End of "Wait for DOM"
 
 /*
