@@ -231,17 +231,17 @@ $(function(){
     });
   }
 
-  function tableOfDrafts(data){
-    //console.log("from the function tableOfDataAdmin ",data);
+    function tableOfDrafts(data){
+      //console.log("from the function tableOfDataAdmin ",data);
 
-    var tableOfTheArticles = "<table>";
-    tableOfTheArticles += "<thead><tr>" +
-    "<th>Publication Date</th>" +
-    "<th>Article</th>" +
-    "<th>Options</th>" +
-    "</tr></thead>";
-    // loop through result array
-    for(var i = 0; i < data.length; i++){
+      var tableOfTheArticles = "<table>";
+      tableOfTheArticles += "<thead><tr>" +
+      "<th>Publication Date</th>" +
+      "<th>Article</th>" +
+      "<th>Options</th>" +
+      "</tr></thead>";
+      // loop through result array
+      for(var i = 0; i < data.length; i++){
       //console.log(data[i]);
       tableOfTheArticles += '<tr>' +
       "<td>" + data[i].publicationDate + "</td>" +
@@ -258,6 +258,60 @@ $(function(){
     // add the html to the dom
     // console.log(html);
     $('.admin-articles').html(tableOfTheArticles);
+  }
+
+  // READ & SHOW DATA FROM CATEGORIES TABLE ==================================================================================/
+  function readTagsData(){
+
+    var adminContent =
+      '<div class="admin-articles"></div>' +
+      '<div class="form_style">' +
+      '</div>';
+
+    // Add content to page
+    $('#maincontent').append(adminContent);
+
+    $.ajax({
+      type: "POST",
+      url: 'php/queries.php',//the script to call to get data
+      dataType: 'json',//data format
+      data: { 'type': 'showAllTags' },
+      success: function(data)//on recieve of reply
+      {
+        tableOfTags(data);
+      },
+      error:function (xhr, ajaxOptions, thrownError){
+        alert(thrownError);
+      }
+    });
+  }
+
+  function tableOfTags(data){
+    //console.log("from the function tableOfDataAdmin ",data);
+
+    var tableOfTheTags = "<table>";
+    tableOfTheTags += "<thead><tr>" +
+      "<th>Id</th>" +
+      "<th>Tag name</th>" +
+      "<th>Options</th>" +
+      "</tr></thead>";
+      // loop through result array
+    for(var i = 0; i < data.length; i++){
+      //console.log(data[i]);
+      tableOfTheTags += '<tr>' +
+      "<td class='tag-id'>" + data[i].id + "</td>" +
+      "<td>" + data[i].name + "</td>" +
+      "<td><button id='editTagB'>Edit tag</button><button id='deleteTagB'>Delete tag</button></td>" +
+      "</tr>";
+
+      // ta fram id
+      //console.log( data[i].id );
+    }
+
+    tableOfTheTags += "</table>";
+    // add the html to the dom
+    // console.log(html);
+    $('.admin-articles').html(tableOfTheTags);
   }
 
   // ADD NEW ARTICLE =================================================================================================/
@@ -563,6 +617,14 @@ $(function(){
       $("#maincontent>form:first").remove();
       $("#maincontent>h3:first").html("Drafts");
       readDraftData();
+    });
+
+    // Event when clicking Create/Delete tags in navigation ======================================================/
+    $("#tags").click(function(){
+      $(".admin-articles, .form_style").remove();
+      $("#maincontent>form:first").remove();
+      $("#maincontent>h3:first").html("Tags");
+      readTagsData();
     });
 
   }// End of clickevents

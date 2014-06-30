@@ -109,6 +109,18 @@ if ( $type === "showAllDrafts" ){
 	echo($show);
 }
 
+// Kolla om $type är lika med "showAllTags"
+if ( $type === "showAllTags" ){
+	// fråga = visa all information i person
+	$show = json_encode(
+	  $myDbConnect->select(
+	    'SELECT * FROM categories ORDER BY id ASC'
+	  )
+	);
+	echo($show);
+}
+
+
 // Kolla om $type är lika med "deleteArticle", isf ta bort rad från articletabellen
 if ( $type === "deleteArticle" ){
 	// Set idx variable to recieved id
