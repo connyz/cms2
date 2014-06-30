@@ -167,6 +167,16 @@ if ( $type === "getTag" ){
 	echo($show);
 }
 
+if ( $type === "getArticleTags" ){
+
+	$show = json_encode(
+	  $myDbConnect->select(
+	    "SELECT DISTINCT categories.name FROM categories LEFT JOIN articles on articles.categoryId = categories.id WHERE articles.categoryId = categories.id"
+	  )
+	);
+	echo($show);
+}
+
 if ( $type === "getTagByArticleId" ){
 
 	$idx = $_POST['idx'];
