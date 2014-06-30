@@ -301,7 +301,7 @@ $(function(){
       tableOfTheTags += '<tr>' +
       "<td class='tag-id'>" + data[i].id + "</td>" +
       "<td>" + data[i].name + "</td>" +
-      "<td><button id='editTagB'>Edit tag</button><button id='deleteTagB'>Delete tag</button></td>" +
+      "<td><button id='deleteTagB'>Delete tag</button></td>" +
       "</tr>";
 
       // ta fram id
