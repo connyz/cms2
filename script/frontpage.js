@@ -101,17 +101,39 @@ $(function(){
 
 	$('.searchByCategory').click( function(){
 		console.log('yes');
+
+		$.ajax({
+			type: "POST",
+			url: 'php/queries.php',//the script to call to get data
+			dataType: 'json',//data format
+			data: { 'type': 'getTag' },
+			success: function(data)//on recieve of reply
+			{
+				console.log(data);
+				GetOutFormTagFunction(data);
+			},
+			error:function (xhr, ajaxOptions, thrownError){
+				alert(thrownError);
+			}
+		});
+
+		function GetOutFormTagFunction(tag){
 		var searchTagForm  = '<div class="col-xs-12">' +
           '<form>' +
             '<label>Tagg</label>' +
-            '<select class="tags" name="taglist" form="taglist">' +
-			'<option value="a">a</option>' +
-			'</select>' +
+            '<select class="tags" name="taglist" form="taglist">';
+
+            for(var i = 0; i < tag.length; i++){
+				console.log(tag[i].name);
+				searchTagForm += '<option value="'+ (i+1) +'">'+tag[i].name+'</option>' ;
+            }
+
+            searchTagForm += '</select>' +
           '</form>' +
         '</div>';
 
         $('#maincontent').prepend(searchTagForm);
-
+        }
 
 	});
 
