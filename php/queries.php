@@ -33,6 +33,15 @@ if ($type === "draftinsert"){
 	  $myDbConnect->insupdel( $sql );
 }
 
+// Kolla om $type är lika med "tagInsert"
+if ($type === "tagInsert"){
+
+	$name = $_POST['tagName'];
+
+	$sql = "INSERT INTO categories (name) VALUES ('$name')";
+	  $myDbConnect->insupdel( $sql );
+}
+
 // Kolla om $type är lika med "update"
 if ($type === "update"){
 
@@ -128,6 +137,18 @@ if ( $type === "deleteArticle" ){
 
 	// Set query
 	$sql = "DELETE FROM articles WHERE id='$idx'";
+
+	// Send query
+	$myDbConnect->insupdel( $sql );
+}
+
+// Kolla om $type är lika med "deleteTag", isf ta bort rad från categoriestabellen
+if ( $type === "deleteTag" ){
+	// Set idx variable to recieved id
+	$idx = $_POST['idx'];
+
+	// Set query
+	$sql = "DELETE FROM categories WHERE id='$idx'";
 
 	// Send query
 	$myDbConnect->insupdel( $sql );

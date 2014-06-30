@@ -308,7 +308,13 @@ $(function(){
       //console.log( data[i].id );
     }
 
-    tableOfTheTags += "</table>";
+    tableOfTheTags += '</table><br> <div class="input-group col-xs-4">' +
+      '<span class="input-group-addon">Add tag</span>' +
+      '<input type="text" class="form-control tagTextInput">' +
+      '<span class="input-group-btn">' +
+      '<button class="btn btn-default addTagB" type="button">Save</button>' +
+      '</span>' +
+      '</div>';
     // add the html to the dom
     // console.log(html);
     $('.admin-articles').html(tableOfTheTags);
@@ -471,6 +477,43 @@ $(function(){
     });
   });
 
+   // SAVE TAG ===============================================================================================/
+  $(document).on('click', ".addTagB", function (e) {
+    //e.preventDefault();
+    if($(".tagTextInput").val()==='')
+    {
+      alert("Please enter name for tag!");
+      return false;
+    }
+
+    /*/ Hide submitbuttons on form
+    $("#FormSubmit").hide();
+    $("#FormSubmitDraft").hide();
+    */
+
+    var tagName = $(".tagTextInput").val(); //build a post data structure
+    console.log(tagName);
+
+    jQuery.ajax({
+      type: "POST", // HTTP method POST or GET
+      url: "php/queries.php", //Where to make Ajax calls
+      dataType:"text", // Data type, HTML, json etc.
+      data: { 'tagName': tagName, 'type': 'tagInsert' }, //Form variables
+      success:function(response){
+          //$("#responds").append(response);
+          console.log(response);
+          $(".tagTextInput").val(''); //empty text field on successful
+          $(".admin-articles, .form_style").remove();
+          $("#maincontent>form:first").remove();
+          $("#maincontent>h3:first").html("Tags");
+          readTagsData();
+        },
+       error:function (xhr, ajaxOptions, thrownError){
+        alert(thrownError);
+      }
+    });
+  });
+
   // SHOW THE CLICKED ARTICLE =============================conny==================================================================/
   function clickEvents() {
     // Event when pushing editbutton on article row
@@ -604,6 +647,27 @@ $(function(){
         data: { 'idx': idx, 'type': 'deleteArticle' }, //Form variables
         success:function(response){
           console.log("Article deleted from db");
+        },
+        error:function (xhr, ajaxOptions, thrownError){
+          alert(thrownError);
+        }
+      });
+    });
+
+    // Event when clicking deletebutton on Tag row ========================================/
+    $(document).on('click', '#deleteTagB', function(){
+      // Find id of clicked row
+      var idx = $(this).closest("tr").find(".tag-id").text();
+      // Remove tablerow after getting id
+      $(this).closest("tr").remove();
+      // Start ajax request
+      jQuery.ajax({
+        type: "POST", // HTTP method POST or GET
+        url: "php/queries.php", //Where to make Ajax calls
+        dataType:"text", // Data type, HTML, json etc.
+        data: { 'idx': idx, 'type': 'deleteTag' }, //Form variables
+        success:function(response){
+          console.log("Tag deleted from db");
         },
         error:function (xhr, ajaxOptions, thrownError){
           alert(thrownError);
