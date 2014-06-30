@@ -102,6 +102,7 @@ $(function(){
 	$('.searchByCategory').click( function(){
 		console.log('yes');
 
+		// Få fram Select i menyn för taggar (category)
 		$.ajax({
 			type: "POST",
 			url: 'php/queries.php',//the script to call to get data
@@ -120,7 +121,6 @@ $(function(){
 		function GetOutFormTagFunction(tag){
 		var searchTagForm  = '<div class="col-xs-12">' +
           '<form>' +
-            '<label>Tagg</label>' +
             '<select class="tags" name="taglist" form="taglist">';
 
             for(var i = 0; i < tag.length; i++){
@@ -129,11 +129,56 @@ $(function(){
             }
 
             searchTagForm += '</select>' +
-          '</form>' +
-        '</div>';
+							'</form>' +
+							'</div>';
 
-        $('#maincontent').prepend(searchTagForm);
-        }
+			$('.tag-select').html(searchTagForm);
+
+			//console.log( $( ".tags" ).val() );
+			//var tags = $( ".tags" ).val();
+
+			$( ".tags" ).change(function() {
+				//alert( $( ".tags" ).val()	);
+				var tags = $( ".tags" ).val();
+
+				// get the article  tag selected
+				$.ajax({
+					type: "POST",
+					url: 'php/queries.php',//the script to call to get data
+					dataType: 'json',//data format
+					data: { 'type': 'showAllArticleByTag', 'tags': tags },
+					success: function(data)//on recieve of reply
+						{
+						//console.log(data);
+						console.log(data, tags);
+
+						var article ='<articles class="col-xs-12">';
+
+						// loop through result array
+						for(var i = 0; i < data.length; i++){
+							//console.log(data[i]);
+							article += '<div class="row">' +
+								"<div class='col-sm-6 col-md-6'><h3 style='color:#428bca'>" + data[i].title + "</h3></div>" +
+								"<div class='col-sm-6 col-md-6 text-right'><h3>" + data[i].publicationDate + "</h3></div>" +
+								"<p class='col-xs-12'>" + data[i].summary + "</p>" +
+								'<p class="article-id">' + data[i].id + "</p>" +
+								"</div><hr>";
+						}
+
+						article += "</articles";
+						// add the html to the dom
+						// console.log(html);
+						$('.front-articles').html(article);
+
+					},
+					error:function (xhr, ajaxOptions, thrownError){
+						alert(thrownError);
+					}
+				});
+			});
+
+		}
+
 
 	});
 

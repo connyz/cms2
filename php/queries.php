@@ -107,6 +107,8 @@ if ( $type === "showAll" ){
 	echo($show);
 }
 
+
+
 // Kolla om $type är lika med "showalldrafts"
 if ( $type === "showAllDrafts" ){
 	// fråga = visa all information i person
@@ -176,9 +178,24 @@ if ( $type === "getTagByArticleId" ){
 	);
 	echo($show);
 }
+
+
 /*SELECT categories.name FROM categories LEFT JOIN articles on articles.categoryId = categories.id WHERE articles.categoryId = 1*/
 /*SELECT DISTINCT categories.name FROM categories LEFT JOIN articles on articles.categoryId = categories.id WHERE articles.id = 3*/
 
+
+if ( $type === "showAllArticleByTag" ){
+
+	$tags = $_POST['tags'];
+
+	// fråga = visa all information i person
+	$show = json_encode(
+	  $myDbConnect->select(
+	    "SELECT * FROM articles WHERE status='PUBLISHED' AND categoryId = $tags  ORDER BY publicationDate DESC "
+	  )
+	);
+	echo($show);
+}
 
 
 /*
