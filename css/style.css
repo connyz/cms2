@@ -131,19 +131,15 @@ table tr td {
 }
 
 
+.frontH3 {
+	cursor: pointer;
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
+.readMore {
+	font-style:italic;
+	color: #f80;
+	cursor: pointer;
+}
 
 
 label, input {

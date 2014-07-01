@@ -35,9 +35,10 @@ $(function(){
 		for(var i = 0; i < data.length; i++){
 			//console.log(data[i]);
 			article += '<div class="row">' +
-				"<div class='col-sm-6 col-md-6'><h3 style='color:#428bca'>" + data[i].title + "</h3></div>" +
+				"<div class='col-sm-6 col-md-6'><h3 class='frontH3' style='color:#428bca'>" + data[i].title + "</h3></div>" +
 				"<div class='col-sm-6 col-md-6 text-right'><h3>" + data[i].publicationDate + "</h3></div>" +
 				"<p class='col-xs-12'>" + data[i].summary + "</p>" +
+				"<p class='readMore col-xs-12'>Continue reading..</p>" +
 				'<p class="article-id">' + data[i].id + "</p>" +
 				"</div><hr>";
 		}
@@ -51,7 +52,7 @@ $(function(){
 	// SHOW THE CLICKED ARTICLE ===============================================================================================/
 	function clickEvents() {
 		// Event when pushing editbutton on article row
-		$(document).on('click', 'h3', function(){
+		$(document).on('click', 'h3, .readMore', function(){
 
 			var idx = $(this).closest(".row").find(".article-id").text();
 			console.log(idx);
