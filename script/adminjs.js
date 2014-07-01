@@ -452,6 +452,7 @@ $(function(){
     var objEditor = CKEDITOR.instances["contentText"]; // Create an instance of current ckeditor
     var content = objEditor.getData(); //Get data from the textfield in ckeditor
     objEditor.setData(''); // Clear the current ckeditor
+    var tags = $( ".tags" ).val();
     var date = $(".date").val(); //build a post data structure
 
     console.log(content, title, summary, date);
@@ -460,7 +461,7 @@ $(function(){
       type: "POST", // HTTP method POST or GET
       url: "php/queries.php", //Where to make Ajax calls
       dataType:"text", // Data type, HTML, json etc.
-      data: { 'title': title, 'summary': summary, 'content': content, 'date': date, 'type': 'draftinsert' }, //Form variables
+      data: { 'title': title, 'summary': summary, 'content': content, 'date': date, 'tags': tags, 'type': 'draftinsert' }, //Form variables
       success:function(response){
           //$("#responds").append(response);
           console.log(response);

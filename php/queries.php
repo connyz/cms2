@@ -27,9 +27,10 @@ if ($type === "draftinsert"){
 	$title = $_POST['title'];
 	$summary = $_POST['summary'];
 	$content = $_POST['content'];
+	$tags = $_POST['tags'];
 	$date = $_POST['date'];
 
-	$sql = "INSERT INTO articles (publicationDate, title, summary, content, status) VALUES ('" . $date . "','" . $title . "','" . $summary . "','" . $content . "','" . "DRAFT" . "')";
+	$sql = "INSERT INTO articles (publicationDate, title, summary, content, categoryId, status) VALUES ('" . $date . "','" . $title . "','" . $summary . "','" . $content . "','" . $tags . "','" . "DRAFT" . "')";
 	  $myDbConnect->insupdel( $sql );
 }
 
