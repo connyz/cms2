@@ -208,6 +208,19 @@ if ( $type === "showAllArticleByTag" ){
 	echo($show);
 }
 
+if ( $type === "showAllArticleByYear" ){
+
+	$year = $_POST['year'];
+
+	// fråga = visa all information i person
+	$show = json_encode(
+	  $myDbConnect->select(
+	  	"SELECT * FROM articles WHERE publicationDate LIKE '%" . $year . "%' "
+	  )
+	);
+	echo($show);
+}
+
 
 /*
 $values = array();

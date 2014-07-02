@@ -183,6 +183,73 @@ $(function(){
 
 	});
 
+
+
+	$('.searchByDate').click( function(){
+		console.log('yes');
+
+		var searchDateForm  = '<div class="col-xs-12">' +
+          '<form>' +
+            '<select class="year" name="year">';
+
+            var myDate = new Date();
+			var year = myDate.getFullYear();
+			for(var i = 2010; i < year+1; i++){
+				searchDateForm += '<option value="'+i+'">'+i+'</option>';
+				}
+
+            searchDateForm += '</select>' +
+							'</form>' +
+							'</div>';
+
+			$('.tag-date').html(searchDateForm);
+
+
+
+		// om man ändrar på select fältet så händer detta
+		$( ".year" ).change(function() {
+
+		var year = $( ".year" ).val();
+		// alert( year );
+
+			// get the article  tag selected
+			$.ajax({
+				type: "POST",
+				url: 'php/queries.php',//the script to call to get data
+				dataType: 'json',//data format
+				data: { 'type': 'showAllArticleByYear', 'year': year },
+				success: function(data)//on recieve of reply
+						{
+						//console.log(data);
+						console.log(data);
+
+						var article ='<articles class="col-xs-12">';
+
+						// loop through result array
+						for(var i = 0; i < data.length; i++){
+							//console.log(data[i]);
+							article += '<div class="row">' +
+								"<div class='col-sm-6 col-md-6'><h3 style='color:#428bca'>" + data[i].title + "</h3></div>" +
+								"<div class='col-sm-6 col-md-6 text-right'><h3>" + data[i].publicationDate + "</h3></div>" +
+								"<p class='col-xs-12'>" + data[i].summary + "</p>" +
+								'<p class="article-id">' + data[i].id + "</p>" +
+								"</div><hr>";
+						}
+
+						article += "</articles";
+						// add the html to the dom
+						// console.log(html);
+						$('.front-articles').html(article);
+
+					},
+					error:function (xhr, ajaxOptions, thrownError){
+						alert(thrownError);
+					}
+				});
+			});
+
+	});
+
 }); // End of "Wait for DOM"
 
 /*
