@@ -103,6 +103,9 @@ $(function(){
 	$('.searchByCategory').click( function(){
 		console.log('yes');
 
+		// Ta bort visad artikel om sådan finnes
+		//$("")
+
 		// Få fram Select i menyn för taggar (category)
 		$.ajax({
 			type: "POST",
@@ -120,8 +123,8 @@ $(function(){
 		});
 
 		function GetOutFormTagFunction(tag){
-		var searchTagForm  = '<div class="col-xs-12">' +
-          '<form>' +
+			var searchTagForm  = '<div class="col-xs-12">' +
+			'<form>' +
             '<select class="tags" name="taglist" form="taglist">';
 
             for(var i = 0; i < tag.length; i++){
@@ -162,6 +165,7 @@ $(function(){
 								"<div class='col-sm-6 col-md-6'><h3 style='color:#428bca'>" + data[i].title + "</h3></div>" +
 								"<div class='col-sm-6 col-md-6 text-right'><h3>" + data[i].publicationDate + "</h3></div>" +
 								"<p class='col-xs-12'>" + data[i].summary + "</p>" +
+								"<p class='readMore col-xs-12'>Continue reading..</p>" +
 								'<p class="article-id">' + data[i].id + "</p>" +
 								"</div><hr>";
 						}
@@ -232,6 +236,7 @@ $(function(){
 								"<div class='col-sm-6 col-md-6'><h3 style='color:#428bca'>" + data[i].title + "</h3></div>" +
 								"<div class='col-sm-6 col-md-6 text-right'><h3>" + data[i].publicationDate + "</h3></div>" +
 								"<p class='col-xs-12'>" + data[i].summary + "</p>" +
+								"<p class='readMore col-xs-12'>Continue reading..</p>" +
 								'<p class="article-id">' + data[i].id + "</p>" +
 								"</div><hr>";
 						}
