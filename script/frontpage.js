@@ -84,7 +84,7 @@ $(function(){
 
 					clickedArticleShow += "</div>";
 
-					$('#maincontent').append(clickedArticleShow);
+					$('.front-articles').append(clickedArticleShow);
 
 					//updateArticle(response);
 					//saveArticleToDraft(response);
@@ -102,9 +102,6 @@ $(function(){
 
 	$('.searchByCategory').click( function(){
 		console.log('yes');
-
-		// Ta bort visad artikel om sådan finnes
-		//$("")
 
 		// Få fram Select i menyn för taggar (category)
 		$.ajax({
