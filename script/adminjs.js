@@ -393,8 +393,8 @@ $(function(){
     e.preventDefault();
     if($(".title").val()==='')
     {
-        alert("Please enter some title for article!");
-        return false;
+      alert("Please enter some title for article!");
+      return false;
     }
 
     $("#FormSubmit").hide(); // hide submit button
@@ -418,14 +418,14 @@ $(function(){
       dataType:"text", // Data type, HTML, json etc.
       data: { 'title': title, 'summary': summary, 'content': content, 'date': date, 'tags': tags, 'type': 'insert' }, //Form variables
       success:function(response){
-          //$("#responds").append(response);
-          console.log(response);
-          $(".title, .summary, #contentText").val(''); //empty text field on successful
-          $("#FormSubmit").show(); //show submit button
-          $("#FormSubmitDraft").show(); //show draft button
-          //$("#LoadingImage").hide(); //hide loading image
-          readData();
-        },
+        //$("#responds").append(response);
+        console.log(response);
+        $(".title, .summary, #contentText").val(''); //empty text field on successful
+        $("#FormSubmit").show(); //show submit button
+        $("#FormSubmitDraft").show(); //show draft button
+        //$("#LoadingImage").hide(); //hide loading image
+        readData();
+      },
       error:function (xhr, ajaxOptions, thrownError){
         $("#FormSubmit").show(); //show submit button
         //$("#LoadingImage").hide(); //hide loading image
@@ -463,12 +463,12 @@ $(function(){
       dataType:"text", // Data type, HTML, json etc.
       data: { 'title': title, 'summary': summary, 'content': content, 'date': date, 'tags': tags, 'type': 'draftinsert' }, //Form variables
       success:function(response){
-          //$("#responds").append(response);
-          console.log(response);
-          $(".title, .summary, #contentText").val(''); //empty text field on successful
-          $("#FormSubmit").show(); //show submit button
-          $("#FormSubmitDraft").show(); //show submit button
-        },
+        //$("#responds").append(response);
+        console.log(response);
+        $(".title, .summary, #contentText").val(''); //empty text field on successful
+        $("#FormSubmit").show(); //show submit button
+        $("#FormSubmitDraft").show(); //show submit button
+      },
        error:function (xhr, ajaxOptions, thrownError){
         $("#FormSubmit").show(); //show submit button
         $("#FormSubmitDraft").show(); //show submit button
