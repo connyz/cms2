@@ -406,7 +406,7 @@ $(function(){
     var objEditor = CKEDITOR.instances["contentText"]; // Create an instance of current ckeditor
     var content = objEditor.getData(); //Get data from the textfield in ckeditor
     objEditor.setData(''); // Clear the current ckeditor
-    console.log(content);
+    //console.log(content);
     var tags = $( ".tags" ).val();
     var date = $(".date").val(); //build a post data structure
 
