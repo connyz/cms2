@@ -51,8 +51,9 @@ if ($type === "update"){
 	$content = $_POST['content'];
 	$date = $_POST['date'];
 	$idx = $_POST['idx'];
+	$tags = $_POST['tags'];
 
-	$sql = "UPDATE articles SET title = '$title', summary = '$summary', content = '$content', publicationDate = '$date' WHERE id='$idx'";
+	$sql = "UPDATE articles SET title = '$title', summary = '$summary', content = '$content', publicationDate = '$date', categoryId = '$tags' WHERE id='$idx'";
 
   	$myDbConnect->insupdel( $sql );
 }
@@ -65,8 +66,9 @@ if ($type === "draftSavePublish"){
 	$content = $_POST['content'];
 	$date = $_POST['date'];
 	$idx = $_POST['idx'];
+	$tags = $_POST['tags'];
 
-	$sql = "UPDATE articles SET title = '$title', summary = '$summary', content = '$content', publicationDate = '$date', Status='PUBLISHED' WHERE id='$idx'";
+	$sql = "UPDATE articles SET title = '$title', summary = '$summary', content = '$content', publicationDate = '$date', categoryId = '$tags', Status='PUBLISHED' WHERE id='$idx'";
 
   	$myDbConnect->insupdel( $sql );
 }
@@ -79,8 +81,9 @@ if ($type === "saveAndUnpublish"){
 	$content = $_POST['content'];
 	$date = $_POST['date'];
 	$idx = $_POST['idx'];
+	$tags = $_POST['tags'];
 
-	$sql = "UPDATE articles SET title = '$title', summary = '$summary', content = '$content', publicationDate = '$date', Status='DRAFT' WHERE id='$idx'";
+	$sql = "UPDATE articles SET title = '$title', summary = '$summary', content = '$content', publicationDate = '$date', categoryId = '$tags', Status='DRAFT' WHERE id='$idx'";
 
   	$myDbConnect->insupdel( $sql );
 }

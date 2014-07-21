@@ -533,12 +533,6 @@ $(function(){
           //$("#responds").append(response);
           $(".admin-articles, .form_style").hide();
           console.log(response);
-          console.log( "title: ", response[0]['title'] );
-          console.log( "summary: ", response[0]['summary'] );
-          console.log( "content: ", response[0]['content'] );
-          console.log( "categoryId: ", response[0]['categoryId'] );
-          console.log( "date: ", response[0]['publicationDate'] );
-          console.log( "id: ", response[0]['id'] );
 
           var clickedArticleShow = "<form>";
             clickedArticleShow += '<label>Title</label>' +
@@ -547,101 +541,52 @@ $(function(){
             '<input type="text" class="updateSummary col-xs-12" name="summary" value="' + response[0]['summary'] + '"><br>' +
             '<label>Content</label>' +
             '<textarea name="content_txt" class="col-xs-12" id="updateContentText" cols="15" rows="5">'+ response[0]['content'] +'</textarea>' +
-            "<script type='text/javascript'>" +
+            "<script class='ckEditorPos' type='text/javascript'>" +
               "CKEDITOR.replace( 'updateContentText' );" +
-            "</script>" +
-            '<br>' +
-            '<label>Tagg</label>' +
-            '<p class="tagOnThisArticle"></p>';
+            "</script>";
 
-            $.ajax({
-              type: "POST",
-              url: 'php/queries.php',//the script to call to get data
-              dataType: 'json',//data format
-              data: { 'type': 'getTagByArticleId', 'idx': response[0]['id'] },
-              success: function(data)//on recieve of reply
-              {
-                console.log( data[0].name );
-                $('.tagOnThisArticle').append(data[0].name);
-              },
-              error:function (xhr, ajaxOptions, thrownError){
-                alert(thrownError);
-              }
-            });
-
-            // För att sätta defaultvärde på options
-            //$("select.tags").find("option#2").attr("selected", true);
-
-            /*
-            function GetOutFormTagFunction(tag){
-              var searchTagForm  = '<div class="col-xs-12">' +
-              '<form>' +
-                    '<select class="tags" name="taglist" form="taglist">';
-
-                    for(var i = 0; i < tag.length; i++){
-                console.log(tag[i].name);
-                searchTagForm += '<option id="'+ (i+1) +'" value="'+ (i+1) +'">'+tag[i].name+'</option>' ;
-                    }
-
-                    searchTagForm += '</select>' +
-                      '</form>' +
-                      '</div>';
-
-              $('.tag-select').html(searchTagForm);
-
-              //console.log( $( ".tags" ).val() );
-              //var tags = $( ".tags" ).val();
-
-              $( ".tags" ).change(function() {
-                //alert( $( ".tags" ).val() );
-                var tags = $( ".tags" ).val();
-
-                // get the article  tag selected
-                $.ajax({
-                  type: "POST",
-                  url: 'php/queries.php',//the script to call to get data
-                  dataType: 'json',//data format
-                  data: { 'type': 'showAllArticleByTag', 'tags': tags },
-                  success: function(data)//on recieve of reply
-                    {
-                    //console.log(data);
-                    console.log(data, tags);
-
-                    var article ='<articles class="col-xs-12">';
-
-                    // loop through result array
-                    for(var i = 0; i < data.length; i++){
-                      //console.log(data[i]);
-                      article += '<div class="row">' +
-                        "<div class='col-sm-6 col-md-6'><h3 style='color:#428bca'>" + data[i].title + "</h3></div>" +
-                        "<div class='col-sm-6 col-md-6 text-right'><h3>" + data[i].publicationDate + "</h3></div>" +
-                        "<p class='col-xs-12'>" + data[i].summary + "</p>" +
-                        "<p class='readMore col-xs-12'>Continue reading..</p>" +
-                        '<p class="article-id">' + data[i].id + "</p>" +
-                        "</div><hr>";
-                    }
-
-                    article += "</articles";
-                    // add the html to the dom
-                    // console.log(html);
-                    $('.front-articles').html(article);
-
-                  },
-                  error:function (xhr, ajaxOptions, thrownError){
-                    alert(thrownError);
-                  }
-                });
-              });
-            }
-            */
-
-
-            clickedArticleShow += '<label>Date</label>' +
+          clickedArticleShow += '<label>Date</label>' +
             '<input class="updateDate" type="date" value="' + response[0]['publicationDate'] + '">' +
             '<button id="FormUpdate">Update article</button>' + '<button id="updateUnpublish">Save as draft</button>';
           clickedArticleShow += "</form>";
 
           $('#maincontent').append(clickedArticleShow);
+
+          $.ajax({
+            type: "POST",
+            url: 'php/queries.php',//the script to call to get data
+            dataType: 'json',//data format
+            data: { 'type': 'getArticleTags' },
+            success: function(data)//on recieve of reply
+            {
+              console.log(data);
+              getTags(data, response[0]['categoryId']);
+            },
+            error:function (xhr, ajaxOptions, thrownError){
+              alert(thrownError);
+            }
+          });
+
+          function getTags(tag, responseId){
+            console.log("What is the id? = "+responseId );
+
+            var searchTagForm  = '<form>' +
+              '<label>Tagg</label>' +
+              '<select class="tags" name="taglist" form="taglist">';
+
+              for(var i = 0; i < tag.length; i++){
+                console.log(tag[i].name);
+                searchTagForm += '<option id="'+ (i+1) +'" value="'+ (i+1) +'">'+tag[i].name+'</option>' ;
+              }
+
+              searchTagForm += '</select></form>';
+
+            $('.ckEditorPos').after(searchTagForm);
+
+            // Set the correct tag for the article under edit
+            $("select.tags").find("option#"+responseId).attr("selected", true);
+
+          }
 
           updateArticle(response);
           saveArticleToDraft(response);
@@ -676,10 +621,9 @@ $(function(){
             '<input type="text" class="updateSummary" name="summary" value="' + response[0]['summary'] + '"><br>' +
             '<label>Content</label>' +
             '<textarea name="content_txt" id="updateContentText" cols="15" rows="5">'+ response[0]['content'] +'</textarea>' +
-            "<script type='text/javascript'>" +
+            "<script class='ckEditorPos' type='text/javascript'>" +
               "CKEDITOR.replace( 'updateContentText' );" +
             "</script>" +
-            '<br>' +
             '<label>Date</label>' +
             '<input class="updateDate" type="date" value="' + response[0]['publicationDate'] + '">' +
             '<button id="FormUpdateDraftPublish">Save and publish article</button>' +
@@ -687,6 +631,41 @@ $(function(){
           clickedArticleShow += "</form>";
 
           $('#maincontent').append(clickedArticleShow);
+
+          $.ajax({
+            type: "POST",
+            url: 'php/queries.php',//the script to call to get data
+            dataType: 'json',//data format
+            data: { 'type': 'getArticleTags' },
+            success: function(data)//on recieve of reply
+            {
+              console.log(data);
+              getTags(data, response[0]['categoryId']);
+            },
+            error:function (xhr, ajaxOptions, thrownError){
+              alert(thrownError);
+            }
+          });
+
+          function getTags(tag, responseId){
+            console.log("What is the id? = "+responseId );
+
+            var searchTagForm  = '<form>' +
+              '<label>Tagg</label>' +
+              '<select class="tags" name="taglist" form="taglist">';
+
+              for(var i = 0; i < tag.length; i++){
+                console.log(tag[i].name);
+                searchTagForm += '<option id="'+ (i+1) +'" value="'+ (i+1) +'">'+tag[i].name+'</option>' ;
+              }
+
+              searchTagForm += '</select></form>';
+
+            $('.ckEditorPos').after(searchTagForm);
+
+            // Set the correct tag for the article under edit
+            $("select.tags").find("option#"+responseId).attr("selected", true);
+          }
 
           updateArticleDraft(response);
           publishArticleDraft(response);
@@ -771,12 +750,13 @@ $(function(){
       var content = objEditor.getData(); //Get data from the textfield in ckeditor
       var date = $(".updateDate").val(); //build a post data structure
       var idx = data[0]['id'];
+      var tags = $( ".tags" ).val();
 
       jQuery.ajax({
       type: "POST", // HTTP method POST or GET
       url: "php/queries.php", //Where to make Ajax calls
       dataType:"text", // Data type, HTML, json etc.
-      data: { 'title': title, 'summary': summary, 'content': content, 'date': date, 'idx': idx, 'type': 'update' }, //Form variables
+      data: { 'title': title, 'summary': summary, 'content': content, 'date': date, 'tags': tags, 'idx': idx, 'type': 'update' }, //Form variables
         success:function(data){
 
           console.log('update success');
@@ -804,12 +784,13 @@ $(function(){
       objEditor.setData(''); // Clear the current ckeditor
       var date = $(".updateDate").val(); //build a post data structure
       var idx = data[0]['id'];
+      var tags = $( ".tags" ).val();
 
       jQuery.ajax({
         type: "POST", // HTTP method POST or GET
         url: "php/queries.php", //Where to make Ajax calls
         dataType:"text", // Data type, HTML, json etc.
-        data: { 'title': title, 'summary': summary, 'content': content, 'date': date, 'idx': idx, 'type': 'saveAndUnpublish' },
+        data: { 'title': title, 'summary': summary, 'content': content, 'date': date, 'tags': tags, 'idx': idx, 'type': 'saveAndUnpublish' },
         success:function(data){
           console.log('Unpublished and saved as draft');
           console.log(data);
@@ -835,12 +816,13 @@ $(function(){
       objEditor.setData(''); // Clear the current ckeditor
       var date = $(".updateDate").val(); //build a post data structure
       var idx = data[0]['id'];
+      var tags = $( ".tags" ).val();
 
       jQuery.ajax({
         type: "POST", // HTTP method POST or GET
         url: "php/queries.php", //Where to make Ajax calls
         dataType:"text", // Data type, HTML, json etc.
-        data: { 'title': title, 'summary': summary, 'content': content, 'date': date, 'idx': idx, 'type': 'update' }, //Form variables
+        data: { 'title': title, 'summary': summary, 'content': content, 'date': date, 'tags': tags, 'idx': idx, 'type': 'update' }, //Form variables
         success:function(data){
 
           console.log('draft update success');
@@ -868,12 +850,13 @@ $(function(){
       objEditor.setData(''); // Clear the current ckeditor
       var date = $(".updateDate").val(); //build a post data structure
       var idx = data[0]['id'];
+      var tags = $( ".tags" ).val();
 
       jQuery.ajax({
         type: "POST", // HTTP method POST or GET
         url: "php/queries.php", //Where to make Ajax calls
         dataType:"text", // Data type, HTML, json etc.
-        data: { 'title': title, 'summary': summary, 'content': content, 'date': date, 'idx': idx, 'type': 'draftSavePublish' },
+        data: { 'title': title, 'summary': summary, 'content': content, 'date': date, 'tags': tags, 'idx': idx, 'type': 'draftSavePublish' },
         success:function(data){
           console.log('draft updated and published');
           console.log(data);
