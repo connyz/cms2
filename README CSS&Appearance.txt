@@ -12,5 +12,5 @@ If there specific css changes you want to make please either change them in the
 directly in "bootstrap.css". Custom css not belonging to bootstrap should be
 written in the "style.css" file.
 
-To keep the styles coherent across different browser we have also included the
+To keep the styles coherent across different browsers we have also included the
 "meyerReset.css" which is loaded first of all css.
