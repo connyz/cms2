@@ -4,7 +4,8 @@ $(function(){
 	readData();
 	clickEvents();
 
-	var frontContent = '<h2 class="text-center">This is the Amazing Blog</h2><div class="front-articles"></div>';
+	var frontContent = '<img class="img-responsive" src="img/logga.png"/><div class="front-articles"></div>';
+	// (Old headertext) '<h2 class="text-center">This is the Amazing Blog</h2>';
 
     // Add content to page
     $('#maincontent').append(frontContent);
