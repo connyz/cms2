@@ -14,3 +14,5 @@ written in the "style.css" file.
 
 To keep the styles coherent across different browsers we have also included the
 "meyerReset.css" which is loaded first of all css.
+
+/Amazing Blog Devteam
