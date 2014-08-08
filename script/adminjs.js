@@ -39,7 +39,8 @@ $(function(){
       '<div class="col-sm-4"></div>' +
       '<div class="loggedout col-sm-4">' +
         'Du är inte inloggad logga in' +
-        '<button class="login">här!</button>' +
+        '&nbsp;' +
+        '<button class="login btn">här!</button>' +
       '</div>' +
     '</div>'
       ;
@@ -67,7 +68,7 @@ $(function(){
     '<input class="col-xs-12" type="text" id="username" name="username" placeholder="Användarnamn">' +
     '<label for="password">password:</label>' +
     '<input class="col-xs-12" type="password" id="password" name="password" placeholder="Lösenord">' +
-    '<input class="submit" type="submit" value="Skicka">' +
+    '<input class="submit login-submit" type="submit" value="Skicka">' +
     '</form>' +
 
     '</div>' +

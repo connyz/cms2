@@ -21,6 +21,17 @@ h1 {
 /*************************************************** LOGIN TO ADMIN */
 .loggedout {
 	margin-top: 100px;
+	text-align: center;
+}
+
+.login {
+
+}
+
+.login-submit {
+	width: 100%;
+	margin-top: 50px;
+	border-radius: 5px;
 }
 
 /*************************************************** ADMIN HEADER */
@@ -188,5 +199,7 @@ form {
 .admincontent {
 
 }
+
+
 
 
