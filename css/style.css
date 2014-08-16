@@ -18,14 +18,14 @@ h1 {
 	margin: 0 auto;
 }
 
+.amazingBlogButton {
+	font-size: 25px;
+}
+
 /*************************************************** LOGIN TO ADMIN */
 .loggedout {
 	margin-top: 100px;
 	text-align: center;
-}
-
-.login {
-
 }
 
 .login-submit {
