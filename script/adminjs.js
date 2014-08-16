@@ -193,7 +193,7 @@ $(function(){
       "<td>" + data[i].publicationDate + "</td>" +
       "<td>" + data[i].title + "</td>" +
       '<td class="article-id">' + data[i].id + "</td>" +
-      "<td><button id='editB'>Edit</button><button id='deleteB'>Delete</button></td>" +
+      '<td><div class="btn-group"><button class="btn btn-default" id="editB">Edit</button><button class="btn btn-default" id="deleteB">Delete</button></div></td>' +
       "</tr>";
 
       // ta fram id
@@ -248,7 +248,7 @@ $(function(){
       "<td>" + data[i].publicationDate + "</td>" +
       "<td>" + data[i].title + "</td>" +
       '<td class="article-id">' + data[i].id + "</td>" +
-      "<td><button id='editDraftB'>Edit draft</button><button id='deleteDraftB'>Delete draft</button></td>" +
+      '<td><div class="btn-group"><button class="btn btn-default" id="editDraftB">Edit draft</button><button class="btn btn-default" id="deleteDraftB">Delete draft</button></div></td>' +
       "</tr>";
 
       // ta fram id
@@ -302,7 +302,7 @@ $(function(){
       tableOfTheTags += '<tr>' +
       "<td class='tag-id'>" + data[i].id + "</td>" +
       "<td>" + data[i].name + "</td>" +
-      "<td><button id='deleteTagB'>Delete tag</button></td>" +
+      '<td><button class="btn btn-default" id="deleteTagB">Delete tag</button></td>' +
       "</tr>";
 
       // ta fram id
@@ -372,8 +372,8 @@ $(function(){
             newArticleForm += '</select>' +
             '<label>Date</label>' +
             '<input class="date" type="date">' +
-            '<button id="FormSubmit">Create article</button>' +
-            '<button id="FormSubmitDraft">Save as draft</button>' +
+            '<button class="btn btn-default" id="FormSubmit">Create article</button>' +
+            '<button class="btn btn-default" id="FormSubmitDraft">Save as draft</button>' +
           '</form>' +
         '</div>';
 
