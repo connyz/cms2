@@ -14,13 +14,13 @@ $(function(){
     // Html for adminarea
     var adminUser =
     '<div class="admincontent">' +
-      'Du är inloggad som ' + user +
+      'Logged in as ' + user +
     '</div>';
 
     // Add content to page
     $('.loggin-text-and-function').append(adminUser);
 
-    var adminLogout = '<div class="logout">Logga ut</div>';
+    var adminLogout = '<div class="logout">Log out</div>';
     $('.logout').append(adminLogout);
 
     var adminContent =
@@ -38,22 +38,13 @@ $(function(){
     '<div class="row">' +
       '<div class="col-sm-4"></div>' +
       '<div class="loggedout col-sm-4">' +
-        'Du är inte inloggad logga in' +
+        'You are not logged in, log in' +
         '&nbsp;' +
-        '<button class="login btn">här!</button>' +
+        '<button class="login btn">here!</button>' +
       '</div>' +
     '</div>'
       ;
     $('.login-div').append(loggedOut); //.loggin-text-and-function
-
-    /*
-    var adminLogin =
-    '<div class="row">' +
-    '<div class="col-sm-4"></div>' +
-      '<div class="login col-sm-4"><button>Logga in</button></div></div>' +
-    '</div>';
-    $('.login-div').append(adminLogin); //.logintext
-    */
 
   }
 
@@ -64,11 +55,11 @@ $(function(){
     '<div class="col-sm-4">' +
 
     '<form class="loginform">' +
-    '<label for="username">Användarnamn:</label>' +
-    '<input class="col-xs-12" type="text" id="username" name="username" placeholder="Användarnamn">' +
-    '<label for="password">password:</label>' +
-    '<input class="col-xs-12" type="password" id="password" name="password" placeholder="Lösenord">' +
-    '<input class="submit login-submit" type="submit" value="Skicka">' +
+    '<label for="username">Username:</label>' +
+    '<input class="col-xs-12" type="text" id="username" name="username" placeholder="Username">' +
+    '<label for="password">Password:</label>' +
+    '<input class="col-xs-12" type="password" id="password" name="password" placeholder="Password">' +
+    '<input class="submit login-submit" type="submit" value="Log in">' +
     '</form>' +
 
     '</div>' +
@@ -78,7 +69,7 @@ $(function(){
 
   // When the user clicks login
   $('.login').click(function(){
-    form.find('.submit').val("Logga in");
+    //form.find('.submit').val("Log in");
     form.submit(loginAttempt);
     form.appendTo('.login-div'); //#maincontent
   });
