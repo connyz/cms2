@@ -56,9 +56,9 @@ $(function(){
 
     '<form class="loginform">' +
     '<label for="username">Username:</label>' +
-    '<input class="col-xs-12" type="text" id="username" name="username" placeholder="Username">' +
+    '<input class="col-xs-12" type="text" id="username" name="username" placeholder="Your username">' +
     '<label for="password">Password:</label>' +
-    '<input class="col-xs-12" type="password" id="password" name="password" placeholder="Password">' +
+    '<input class="col-xs-12" type="password" id="password" name="password" placeholder="Your password">' +
     '<input class="submit login-submit" type="submit" value="Log in">' +
     '</form>' +
 
