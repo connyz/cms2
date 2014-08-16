@@ -171,6 +171,7 @@ if ( $type === "getTag" ){
 	echo($show);
 }
 
+// Hämta taggar som används i minst en artikel
 if ( $type === "getArticleTags" ){
 
 	$show = json_encode(

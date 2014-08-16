@@ -309,7 +309,7 @@ $(function(){
       //console.log( data[i].id );
     }
 
-    tableOfTheTags += '</table><br> <div class="input-group col-xs-4">' +
+    tableOfTheTags += '</table><br> <div class="input-group col-xs-6">' +
       '<span class="input-group-addon">Add tag</span>' +
       '<input type="text" class="form-control tagTextInput">' +
       '<span class="input-group-btn">' +
