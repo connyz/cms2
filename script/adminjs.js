@@ -608,9 +608,9 @@ $(function(){
 
           var clickedArticleShow = "<form>";
             clickedArticleShow += '<label>Title</label>' +
-            '<input type="text" class="updateTitle" name="title" value="' + response[0]['title']  + '"><br>' +
+            '<input type="text" class="updateTitle col-xs-12" name="title" value="' + response[0]['title']  + '"><br>' +
             '<label>Summary</label>' +
-            '<input type="text" class="updateSummary" name="summary" value="' + response[0]['summary'] + '"><br>' +
+            '<input type="text" class="updateSummary col-xs-12" name="summary" value="' + response[0]['summary'] + '"><br>' +
             '<label>Content</label>' +
             '<textarea name="content_txt" id="updateContentText" cols="15" rows="5">'+ response[0]['content'] +'</textarea>' +
             "<script class='ckEditorPos' type='text/javascript'>" +
