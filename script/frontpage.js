@@ -109,7 +109,7 @@ $(function(){
 			type: "POST",
 			url: 'php/queries.php',//the script to call to get data
 			dataType: 'json',//data format
-			data: { 'type': 'getTag' }, //getArticleTags
+			data: { 'type': 'getArticleTags' }, //getArticleTags
 			success: function(data)//on recieve of reply
 			{
 				console.log(data);

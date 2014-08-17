@@ -176,7 +176,7 @@ if ( $type === "getArticleTags" ){
 
 	$show = json_encode(
 	  $myDbConnect->select(
-	    "SELECT DISTINCT categories.name FROM categories LEFT JOIN articles on articles.categoryId = categories.id WHERE articles.categoryId = categories.id"
+	    "SELECT DISTINCT categories.name FROM categories LEFT JOIN articles on articles.categoryId = categories.id WHERE articles.categoryId = categories.id AND articles.status = 'PUBLISHED'"
 	  )
 	);
 	echo($show);
