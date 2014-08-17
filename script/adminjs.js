@@ -357,7 +357,7 @@ $(function(){
 
             for(var i = 0; i < tag.length; i++){
               console.log(tag[i].name);
-              newArticleForm += '<option value="'+ (i+1) +'">'+tag[i].name+'</option>' ;
+              newArticleForm += '<option value="'+ (tag[i].id) +'">'+tag[i].name+'</option>' ;
             }
 
             newArticleForm += '</select>' +
@@ -548,36 +548,50 @@ $(function(){
             type: "POST",
             url: 'php/queries.php',//the script to call to get data
             dataType: 'json',//data format
-            data: { 'type': 'getArticleTags' },
+            data: { 'type': 'getTag' },
             success: function(data)//on recieve of reply
             {
               console.log(data);
-              getTags(data, response[0]['categoryId']);
+              getTags(data);
             },
             error:function (xhr, ajaxOptions, thrownError){
               alert(thrownError);
             }
           });
 
-          function getTags(tag, responseId){
-            console.log("What is the id? = "+responseId );
+          function getTags(tag){
+            //console.log("What is the data? = "+tag[0].id +' '+ tag[0].name );
 
             var searchTagForm  = '<form>' +
               '<label>Tagg</label>' +
               '<select class="tags" name="taglist" form="taglist">';
 
               for(var i = 0; i < tag.length; i++){
-                console.log(tag[i].name);
-                searchTagForm += '<option id="'+ (i+1) +'" value="'+ (i+1) +'">'+tag[i].name+'</option>' ;
+                //console.log(tag[i].name);
+                searchTagForm += '<option id="'+ (tag[i].id) +'" value="'+ (tag[i].id) +'">'+tag[i].name+'</option>' ;
               }
 
               searchTagForm += '</select></form>';
 
             $('.ckEditorPos').after(searchTagForm);
 
-            // Set the correct tag for the article under edit
-            $("select.tags").find("option#"+responseId).attr("selected", true);
-
+            $.ajax({
+              type: "POST",
+              url: 'php/queries.php',//the script to call to get data
+              dataType: 'json',//data format
+              data: { 'type': 'getThisArticleTag', 'idx': idx },
+              success: function(data)//on recieve of reply
+              {
+                console.log(data);
+                // Set the correct tag for the article under editbutton
+                if (data[0] !== undefined){
+                  $("select.tags").find("option#"+data[0].id).attr("selected", true);
+                }
+              },
+              error:function (xhr, ajaxOptions, thrownError){
+                alert(thrownError);
+              }
+            });
           }
 
           updateArticle(response);
@@ -628,35 +642,50 @@ $(function(){
             type: "POST",
             url: 'php/queries.php',//the script to call to get data
             dataType: 'json',//data format
-            data: { 'type': 'getArticleTags' },
+            data: { 'type': 'getTag' },
             success: function(data)//on recieve of reply
             {
               console.log(data);
-              getTags(data, response[0]['categoryId']);
+              getTags(data);
             },
             error:function (xhr, ajaxOptions, thrownError){
               alert(thrownError);
             }
           });
 
-          function getTags(tag, responseId){
-            console.log("What is the id? = "+responseId );
+          function getTags(tag){
+            //console.log("What is the data? = "+tag[0].id +' '+ tag[0].name );
 
             var searchTagForm  = '<form>' +
               '<label>Tagg</label>' +
               '<select class="tags" name="taglist" form="taglist">';
 
               for(var i = 0; i < tag.length; i++){
-                console.log(tag[i].name);
-                searchTagForm += '<option id="'+ (i+1) +'" value="'+ (i+1) +'">'+tag[i].name+'</option>' ;
+                //console.log(tag[i].name);
+                searchTagForm += '<option id="'+ (tag[i].id) +'" value="'+ (tag[i].id) +'">'+tag[i].name+'</option>' ;
               }
 
               searchTagForm += '</select></form>';
 
             $('.ckEditorPos').after(searchTagForm);
 
-            // Set the correct tag for the article under edit
-            $("select.tags").find("option#"+responseId).attr("selected", true);
+            $.ajax({
+              type: "POST",
+              url: 'php/queries.php',//the script to call to get data
+              dataType: 'json',//data format
+              data: { 'type': 'getThisArticleTag', 'idx': idx },
+              success: function(data)//on recieve of reply
+              {
+                console.log(data);
+                // Set the correct tag for the article under editbutton
+                if (data[0] !== undefined){
+                  $("select.tags").find("option#"+data[0].id).attr("selected", true);
+                }
+              },
+              error:function (xhr, ajaxOptions, thrownError){
+                alert(thrownError);
+              }
+            });
           }
 
           updateArticleDraft(response);

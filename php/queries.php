@@ -165,7 +165,7 @@ if ( $type === "getTag" ){
 	// fråga = visa all information i person
 	$show = json_encode(
 	  $myDbConnect->select(
-	    'SELECT name FROM categories'
+	    'SELECT name, id FROM categories'
 	  )
 	);
 	echo($show);
@@ -177,6 +177,19 @@ if ( $type === "getArticleTags" ){
 	$show = json_encode(
 	  $myDbConnect->select(
 	    "SELECT DISTINCT categories.name FROM categories LEFT JOIN articles on articles.categoryId = categories.id WHERE articles.categoryId = categories.id"
+	  )
+	);
+	echo($show);
+}
+
+// Hämta tagg som tillhör denne artikel
+if ( $type === "getThisArticleTag" ){
+
+	$idx = $_POST['idx'];
+
+	$show = json_encode(
+	  $myDbConnect->select(
+	    "SELECT DISTINCT categories.id FROM categories LEFT JOIN articles on articles.categoryId = categories.id WHERE articles.categoryId = categories.id AND articles.id = $idx"
 	  )
 	);
 	echo($show);
