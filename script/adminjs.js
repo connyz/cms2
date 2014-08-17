@@ -815,7 +815,8 @@ $(function(){
         success:function(data){
           console.log('Unpublished and saved as draft');
           console.log(data);
-          window.location.href="http://localhost/git/cms2/admin.html";
+          location.reload();
+          //window.location.href="http://localhost/git/cms2/admin.html";
         },
         error:function (xhr, ajaxOptions, thrownError){
           alert(thrownError);
@@ -881,7 +882,8 @@ $(function(){
         success:function(data){
           console.log('draft updated and published');
           //console.log(data);
-          window.location.href="http://localhost/git/cms2/admin.html";
+          location.reload();
+          //window.location.href="http://localhost/git/cms2/admin.html";
         },
         error:function (xhr, ajaxOptions, thrownError){
           alert(thrownError);
