@@ -880,7 +880,7 @@ $(function(){
         data: { 'title': title, 'summary': summary, 'content': content, 'date': date, 'tags': tags, 'idx': idx, 'type': 'draftSavePublish' },
         success:function(data){
           console.log('draft updated and published');
-          console.log(data);
+          //console.log(data);
           window.location.href="http://localhost/git/cms2/admin.html";
         },
         error:function (xhr, ajaxOptions, thrownError){
