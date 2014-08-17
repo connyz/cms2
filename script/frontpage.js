@@ -127,7 +127,7 @@ $(function(){
 
             for(var i = 0; i < tag.length; i++){
 				console.log(tag[i].name);
-				searchTagForm += '<option value="'+ (i+1) +'">'+tag[i].name+'</option>' ;
+				searchTagForm += '<option value="'+ (tag[i].id) +'">'+tag[i].name+'</option>' ;
             }
 
             searchTagForm += '</select>' +
